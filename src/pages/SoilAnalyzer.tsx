@@ -1,0 +1,313 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+import { Sprout, LogOut, ArrowLeft, Loader2 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import soilImage from "@/assets/soil-health.jpg";
+
+const SoilAnalyzer = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
+  
+  const [soilData, setSoilData] = useState({
+    ph: "",
+    nitrogen: "",
+    phosphorus: "",
+    potassium: "",
+    organicMatter: "",
+    moisture: "",
+  });
+
+  const [report, setReport] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session?.user) {
+        navigate("/auth");
+      } else {
+        setUser(session.user);
+      }
+    });
+  }, [navigate]);
+
+  const handleAnalyze = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAnalyzing(true);
+
+    try {
+      // Simulate AI analysis
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const ph = parseFloat(soilData.ph);
+      const n = parseFloat(soilData.nitrogen);
+      const p = parseFloat(soilData.phosphorus);
+      const k = parseFloat(soilData.potassium);
+      const om = parseFloat(soilData.organicMatter);
+      const moisture = parseFloat(soilData.moisture);
+
+      // Calculate health score
+      let score = 0;
+      if (ph >= 6.0 && ph <= 7.5) score += 20;
+      else if (ph >= 5.5 && ph <= 8.0) score += 10;
+      
+      if (n >= 40) score += 20;
+      else if (n >= 30) score += 15;
+      else if (n >= 20) score += 10;
+      
+      if (p >= 30) score += 20;
+      else if (p >= 20) score += 15;
+      else if (p >= 10) score += 10;
+      
+      if (k >= 40) score += 20;
+      else if (k >= 30) score += 15;
+      else if (k >= 20) score += 10;
+      
+      if (om >= 5) score += 20;
+      else if (om >= 3) score += 15;
+      else if (om >= 2) score += 10;
+
+      // Generate recommendations
+      const recommendations = [];
+      if (ph < 6.0) recommendations.push("🔹 pH is too acidic. Apply lime to raise pH to 6.0-7.0 range.");
+      if (ph > 7.5) recommendations.push("🔹 pH is too alkaline. Add sulfur or organic matter to lower pH.");
+      if (n < 40) recommendations.push("🔹 Nitrogen levels are low. Consider cover cropping with legumes or adding compost.");
+      if (p < 30) recommendations.push("🔹 Phosphorus is deficient. Add rock phosphate or bone meal.");
+      if (k < 40) recommendations.push("🔹 Potassium needs improvement. Apply wood ash or greensand.");
+      if (om < 3) recommendations.push("🔹 Increase organic matter with compost, mulch, and cover crops.");
+      if (score >= 80) recommendations.push("✅ Excellent soil health! Continue current practices.");
+
+      setReport({
+        healthScore: score,
+        recommendations: recommendations.length ? recommendations : ["✅ Your soil is in great condition! Keep up the good work."],
+        ph,
+        nitrogen: n,
+        phosphorus: p,
+        potassium: k,
+        organicMatter: om,
+        moisture,
+      });
+
+      toast.success("Analysis complete!");
+    } catch (error) {
+      toast.error("Analysis failed. Please try again.");
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+      {/* Header */}
+      <header className="bg-card border-b border-border shadow-soft">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <div className="flex items-center gap-2">
+              <Sprout className="h-8 w-8 text-primary" />
+              <h1 className="text-2xl font-bold text-foreground">AI Soil Analyzer</h1>
+            </div>
+          </div>
+          <Button variant="outline" size="sm" onClick={handleSignOut}>
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
+          </Button>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Input Form */}
+          <Card className="p-8">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Enter Soil Data</h2>
+            
+            <form onSubmit={handleAnalyze} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="ph">pH Level (0-14)</Label>
+                <Input
+                  id="ph"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="14"
+                  value={soilData.ph}
+                  onChange={(e) => setSoilData({ ...soilData, ph: e.target.value })}
+                  placeholder="6.5"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="nitrogen">Nitrogen (ppm)</Label>
+                <Input
+                  id="nitrogen"
+                  type="number"
+                  step="1"
+                  min="0"
+                  value={soilData.nitrogen}
+                  onChange={(e) => setSoilData({ ...soilData, nitrogen: e.target.value })}
+                  placeholder="45"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phosphorus">Phosphorus (ppm)</Label>
+                <Input
+                  id="phosphorus"
+                  type="number"
+                  step="1"
+                  min="0"
+                  value={soilData.phosphorus}
+                  onChange={(e) => setSoilData({ ...soilData, phosphorus: e.target.value })}
+                  placeholder="35"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="potassium">Potassium (ppm)</Label>
+                <Input
+                  id="potassium"
+                  type="number"
+                  step="1"
+                  min="0"
+                  value={soilData.potassium}
+                  onChange={(e) => setSoilData({ ...soilData, potassium: e.target.value })}
+                  placeholder="42"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="organicMatter">Organic Matter (%)</Label>
+                <Input
+                  id="organicMatter"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  value={soilData.organicMatter}
+                  onChange={(e) => setSoilData({ ...soilData, organicMatter: e.target.value })}
+                  placeholder="4.2"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="moisture">Moisture Content (%)</Label>
+                <Input
+                  id="moisture"
+                  type="number"
+                  step="1"
+                  min="0"
+                  max="100"
+                  value={soilData.moisture}
+                  onChange={(e) => setSoilData({ ...soilData, moisture: e.target.value })}
+                  placeholder="65"
+                  required
+                />
+              </div>
+
+              <Button type="submit" className="w-full" disabled={analyzing}>
+                {analyzing ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  "Analyze Soil Health"
+                )}
+              </Button>
+            </form>
+          </Card>
+
+          {/* Results */}
+          <div className="space-y-6">
+            <Card className="p-8">
+              <h2 className="text-2xl font-bold text-foreground mb-6">Analysis Results</h2>
+              
+              {report ? (
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-lg font-semibold text-foreground">Health Score</span>
+                      <span className="text-3xl font-bold text-primary">{report.healthScore}/100</span>
+                    </div>
+                    <Progress value={report.healthScore} className="h-3" />
+                  </div>
+
+                  <div className="pt-6 border-t border-border">
+                    <h3 className="text-lg font-semibold text-foreground mb-4">Recommendations</h3>
+                    <ul className="space-y-3">
+                      {report.recommendations.map((rec: string, index: number) => (
+                        <li key={index} className="text-muted-foreground leading-relaxed">
+                          {rec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-6 border-t border-border">
+                    <h3 className="text-lg font-semibold text-foreground mb-4">Detailed Metrics</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-muted-foreground">pH Level</p>
+                        <p className="text-lg font-semibold text-foreground">{report.ph}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Nitrogen</p>
+                        <p className="text-lg font-semibold text-foreground">{report.nitrogen} ppm</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Phosphorus</p>
+                        <p className="text-lg font-semibold text-foreground">{report.phosphorus} ppm</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Potassium</p>
+                        <p className="text-lg font-semibold text-foreground">{report.potassium} ppm</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Organic Matter</p>
+                        <p className="text-lg font-semibold text-foreground">{report.organicMatter}%</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Moisture</p>
+                        <p className="text-lg font-semibold text-foreground">{report.moisture}%</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <img 
+                    src={soilImage} 
+                    alt="Healthy soil" 
+                    className="w-full h-48 object-cover rounded-lg mb-6"
+                  />
+                  <p className="text-muted-foreground">
+                    Enter your soil test data to get AI-powered health analysis and recommendations
+                  </p>
+                </div>
+              )}
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SoilAnalyzer;
