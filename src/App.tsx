@@ -8,6 +8,9 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import SoilAnalyzer from "./pages/SoilAnalyzer";
 import Chatbot from "./pages/Chatbot";
+import ClimateAlerts from "./pages/ClimateAlerts";
+import CommunityHub from "./pages/CommunityHub";
+import FarmMap from "./pages/FarmMap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/soil-analyzer" element={<SoilAnalyzer />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/climate-alerts" element={<ClimateAlerts />} />
+          <Route path="/community-hub" element={<CommunityHub />} />
+          <Route path="/farm-map" element={<FarmMap />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

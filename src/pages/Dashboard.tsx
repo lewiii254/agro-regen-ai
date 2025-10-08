@@ -121,7 +121,7 @@ const Dashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <Button
             className="h-auto py-6 flex-col gap-2"
             variant="outline"
@@ -133,7 +133,7 @@ const Dashboard = () => {
           <Button
             className="h-auto py-6 flex-col gap-2"
             variant="outline"
-            onClick={() => navigate("/climate")}
+            onClick={() => navigate("/climate-alerts")}
           >
             <AlertTriangle className="h-6 w-6" />
             <span>Climate Alerts</span>
@@ -149,10 +149,18 @@ const Dashboard = () => {
           <Button
             className="h-auto py-6 flex-col gap-2"
             variant="outline"
-            onClick={() => navigate("/community")}
+            onClick={() => navigate("/community-hub")}
           >
             <Users className="h-6 w-6" />
             <span>Community</span>
+          </Button>
+          <Button
+            className="h-auto py-6 flex-col gap-2"
+            variant="outline"
+            onClick={() => navigate("/farm-map")}
+          >
+            <MapPin className="h-6 w-6" />
+            <span>Farm Map</span>
           </Button>
         </div>
 
