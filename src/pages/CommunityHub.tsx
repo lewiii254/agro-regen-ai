@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { PostComments } from "@/components/PostComments";
 
 interface CommunityPost {
   id: string;
@@ -236,7 +237,7 @@ const CommunityHub = () => {
         ) : (
           <div className="space-y-4">
             {posts.map((post) => (
-              <Card key={post.id}>
+              <Card key={post.id} className="hover:shadow-lg transition-all duration-300 animate-fade-in">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -259,16 +260,18 @@ const CommunityHub = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-foreground whitespace-pre-wrap mb-4">{post.content}</p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 border-t pt-4">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleLike(post.id, post.likes)}
+                      className="hover:text-destructive transition-colors"
                     >
                       <Heart className="h-4 w-4 mr-1" />
                       {post.likes}
                     </Button>
                   </div>
+                  <PostComments postId={post.id} />
                 </CardContent>
               </Card>
             ))}

@@ -102,7 +102,7 @@ const FarmMap = () => {
             </CardContent>
           </Card>
         ) : farms.length === 0 ? (
-          <Card>
+          <Card className="animate-fade-in">
             <CardContent className="flex flex-col items-center justify-center py-12">
               <MapPin className="h-16 w-16 text-muted-foreground mb-4" />
               <p className="text-xl font-semibold text-foreground">No farms with coordinates</p>
@@ -115,9 +115,9 @@ const FarmMap = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 animate-fade-in-up">
             <div className="lg:col-span-2">
-              <Card className="overflow-hidden">
+              <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <CardContent className="p-0">
                   <div style={{ height: "600px", width: "100%" }}>
                     <MapContainer
@@ -159,7 +159,7 @@ const FarmMap = () => {
             </div>
 
             <div className="space-y-4">
-              <Card>
+              <Card className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
                   <CardTitle>Your Farms</CardTitle>
                   <CardDescription>
@@ -171,7 +171,7 @@ const FarmMap = () => {
                     {farms.map((farm) => (
                       <div
                         key={farm.id}
-                        className="p-3 rounded-lg border bg-card hover:bg-accent transition-colors cursor-pointer"
+                        className="p-3 rounded-lg border bg-card hover:bg-accent hover:scale-105 transition-all duration-200 cursor-pointer animate-scale-in"
                         onClick={() => {
                           setMapCenter([farm.latitude!, farm.longitude!] as LatLngExpression);
                         }}

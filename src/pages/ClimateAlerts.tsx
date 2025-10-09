@@ -139,7 +139,7 @@ const ClimateAlerts = () => {
             ))}
           </div>
         ) : alerts.length === 0 ? (
-          <Card>
+          <Card className="animate-fade-in">
             <CardContent className="flex flex-col items-center justify-center py-12">
               <Cloud className="h-16 w-16 text-muted-foreground mb-4" />
               <p className="text-xl font-semibold text-foreground">No climate alerts</p>
@@ -153,10 +153,11 @@ const ClimateAlerts = () => {
           </Card>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
-            {alerts.map((alert) => (
+            {alerts.map((alert, index) => (
               <Card 
                 key={alert.id} 
-                className={`transition-opacity ${alert.is_read ? "opacity-60" : ""}`}
+                className={`transition-all duration-300 hover:shadow-lg hover:scale-105 animate-fade-in ${alert.is_read ? "opacity-60" : ""}`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">

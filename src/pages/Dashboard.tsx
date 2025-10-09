@@ -16,6 +16,7 @@ import {
   MapPin
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { NotificationBell } from "@/components/NotificationBell";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -96,6 +97,7 @@ const Dashboard = () => {
             <span className="text-sm text-muted-foreground hidden sm:inline">
               {user?.email}
             </span>
+            <NotificationBell />
             <Button
               variant="outline"
               size="sm"
@@ -123,7 +125,7 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-6 flex-col gap-2 hover:scale-105 transition-transform duration-200 animate-fade-in"
             variant="outline"
             onClick={() => navigate("/soil-analyzer")}
           >
@@ -166,7 +168,7 @@ const Dashboard = () => {
 
         {/* Key Metrics */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6">
+          <Card className="p-6 hover:shadow-lg transition-all duration-300 animate-scale-in hover:scale-105">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-muted-foreground">Soil Health Score</h3>
               <TrendingUp className="h-5 w-5 text-accent" />
