@@ -65,6 +65,10 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Personalized soil improvement strategies
   - Crop rotation suggestions
   - Fertilizer recommendations
+- **Report Management** 📄
+  - Export reports as text files
+  - Share results via social media or clipboard
+  - Download historical analysis data
 
 ### ⛈️ Climate Prediction Engine
 - **Hyperlocal Weather Forecasts** 🌦️
@@ -89,6 +93,11 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Category-based posts
   - Like and engage with community content
   - Learn from fellow farmers
+- **Interactive Comments System** 💬
+  - Comment on community posts
+  - Real-time comment updates
+  - User profile integration
+  - Threaded discussions
 
 ### 🗺️ Interactive Farm Mapping
 - **GPS-Based Farm Visualization** 📍
@@ -103,6 +112,32 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Weekly moisture tracking
   - Farm health distribution
   - Key performance indicators
+- **Real-time Notifications** 🔔
+  - Live notification bell with badge counter
+  - Climate alert notifications
+  - Community engagement updates
+  - Farm activity monitoring
+  - Mark notifications as read/unread
+
+### ✨ Modern UI/UX Design
+- **Smooth Animations** 🎬
+  - Fade-in effects for page content
+  - Scale animations for interactive elements
+  - Slide-in transitions for modals
+  - Bounce effects for notifications
+  - Shimmer loading states
+- **Interactive Hover Effects** 🎨
+  - Card elevation on hover
+  - Scale transformations
+  - Smooth color transitions
+  - Shadow enhancements
+  - Button state feedback
+- **Responsive Design** 📱
+  - Mobile-first approach
+  - Tablet optimizations
+  - Desktop enhancements
+  - Touch-friendly interfaces
+  - Adaptive layouts
 
 ---
 
@@ -118,6 +153,8 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
 - **TanStack Query** 🔄 - Data fetching & caching
 - **Recharts** 📊 - Data visualization
 - **React Leaflet** 🗺️ - Interactive maps
+- **Framer Motion Animations** ✨ - Smooth UI transitions
+- **Real-time Subscriptions** ⚡ - Live data updates
 
 ### Backend ⚙️
 - **Supabase** 🔥 - Backend-as-a-Service
@@ -191,6 +228,20 @@ Navigate to `http://localhost:5173`
 2. **Sign In** - Access your personalized dashboard
 3. **Profile Setup** - Add your farming details
 
+### 🔔 Managing Notifications
+
+1. Click the **Bell Icon** in the dashboard header
+2. View unread notifications (red badge shows count)
+3. Click on notifications to:
+   - Navigate to relevant sections
+   - Mark as read
+   - Take action on alerts
+4. Receive real-time updates for:
+   - New climate alerts
+   - Community engagement (likes, comments)
+   - Farm health changes
+   - System updates
+
 ### 🌾 Managing Farms
 
 1. Navigate to **Dashboard** 📊
@@ -205,13 +256,20 @@ Navigate to `http://localhost:5173`
 ### 🔬 Analyzing Soil Health
 
 1. Go to **Soil Analyzer** page
-2. Select your farm
-3. View detailed health metrics:
+2. Enter soil test data:
    - pH level
-   - NPK levels
+   - Nitrogen, Phosphorus, Potassium levels
    - Moisture content
-   - Health score
-4. Review AI-generated recommendations
+   - Organic matter percentage
+3. Click **Analyze Soil Health**
+4. View comprehensive results:
+   - Overall health score (0-100)
+   - Detailed nutrient breakdown
+   - AI-generated recommendations
+5. **Export** or **Share** your report:
+   - Download as text file
+   - Share on social media
+   - Copy summary to clipboard
 
 ### 💬 Getting AI Advice
 
@@ -233,9 +291,17 @@ Navigate to `http://localhost:5173`
 ### 👥 Joining the Community
 
 1. Navigate to **Community Hub**
-2. Read tips from fellow farmers
-3. Create your own posts
-4. Like and engage with content
+2. Browse posts from fellow farmers
+3. **Create** your own posts:
+   - Add a compelling title
+   - Choose a category
+   - Write detailed content
+   - Share your experiences
+4. **Engage** with the community:
+   - Like posts to show appreciation
+   - Leave thoughtful comments
+   - Reply to other farmers' questions
+   - Build your farming network
 
 ### 🗺️ Viewing Farm Maps
 
@@ -307,6 +373,8 @@ agroregren/
 │   │   ├── hero-farmland.jpg
 │   │   └── soil-health.jpg
 │   ├── 📁 components/        # React components
+│   │   ├── NotificationBell.tsx  # Real-time notifications
+│   │   ├── PostComments.tsx      # Community comments
 │   │   └── 📁 ui/           # Shadcn UI components
 │   │       ├── button.tsx
 │   │       ├── card.tsx
@@ -508,6 +576,44 @@ Extended user information beyond auth data
 - Users can only update their own profile
 - Auto-created via database trigger
 
+#### `post_comments`
+Comments and discussions on community posts
+```typescript
+{
+  id: uuid,                    // Primary key
+  post_id: uuid,               // Foreign key to community_posts
+  user_id: uuid,               // Foreign key to auth.users
+  content: string,             // Comment text
+  created_at: timestamp,       // Comment creation
+  updated_at: timestamp        // Last edit
+}
+```
+
+**RLS Policies**: ✅ Enabled
+- All comments publicly readable
+- Authenticated users can create comments
+- Users can only edit/delete their own comments
+
+#### `notifications`
+Real-time notification system for user alerts
+```typescript
+{
+  id: uuid,                    // Primary key
+  user_id: uuid,               // Foreign key to auth.users
+  title: string,               // Notification title
+  message: string,             // Notification body
+  type: string,                // alert/success/info
+  is_read: boolean,            // Read status
+  link: string,                // Action link (nullable)
+  created_at: timestamp        // Notification creation
+}
+```
+
+**RLS Policies**: ✅ Enabled
+- Users can only view their own notifications
+- Users can update their own notifications (mark as read)
+- Real-time subscriptions enabled
+
 ### 🔧 Edge Functions
 
 #### `ai-advisor`
@@ -553,16 +659,24 @@ Extended user information beyond auth data
 - [x] Community hub with posts
 - [x] Interactive farm mapping
 - [x] Responsive design
+- [x] Real-time notifications system
+- [x] Post comments and discussions
+- [x] Export and share reports
+- [x] Smooth animations and transitions
+- [x] Interactive hover effects
 
 ### 🚀 Phase 2: Enhanced Features 🔄 (In Progress)
 - [ ] Mobile app (React Native) 📱
 - [ ] Offline mode support 📴
 - [ ] Multi-language interface 🌍
 - [ ] Advanced analytics dashboard 📊
-- [ ] Export reports (PDF/Excel) 📄
+- [ ] Export reports (PDF/Excel) - Text export ✅
 - [ ] Integration with IoT sensors 🔌
-- [ ] Push notifications 🔔
+- [ ] Email push notifications 🔔
 - [ ] Dark mode support 🌙
+- [x] Web notifications (Real-time) ✅
+- [x] Comment threads ✅
+- [x] Social sharing features ✅
 
 ### 🌟 Phase 3: Scale 📅 (Q2 2025)
 - [ ] Marketplace for farm products 🛒
