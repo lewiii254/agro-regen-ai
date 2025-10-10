@@ -3,7 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, MapPin, Activity } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -26,7 +27,42 @@ interface Farm {
   latitude: number | null;
   longitude: number | null;
   size_hectares: number | null;
+  health_score?: number | null;
+  latest_report_date?: string | null;
 }
+
+const getHealthColor = (score: number | null | undefined): string => {
+  if (!score) return "#6B7280"; // gray for no data
+  if (score >= 80) return "#10B981"; // green for excellent
+  if (score >= 60) return "#F59E0B"; // yellow for good
+  if (score >= 40) return "#F97316"; // orange for fair
+  return "#EF4444"; // red for poor
+};
+
+const getHealthLabel = (score: number | null | undefined): string => {
+  if (!score) return "No Data";
+  if (score >= 80) return "Excellent";
+  if (score >= 60) return "Good";
+  if (score >= 40) return "Fair";
+  return "Poor";
+};
+
+const createCustomMarker = (healthScore: number | null | undefined) => {
+  const color = getHealthColor(healthScore);
+  const svgIcon = `
+    <svg width="25" height="41" viewBox="0 0 25 41" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12.5 0C5.596 0 0 5.596 0 12.5c0 9.375 12.5 28.125 12.5 28.125S25 21.875 25 12.5C25 5.596 19.404 0 12.5 0z" fill="${color}"/>
+      <circle cx="12.5" cy="12.5" r="6" fill="white"/>
+    </svg>
+  `;
+  return L.divIcon({
+    html: svgIcon,
+    className: "custom-marker",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+  });
+};
 
 const FarmMap = () => {
   const navigate = useNavigate();
@@ -36,6 +72,26 @@ const FarmMap = () => {
 
   useEffect(() => {
     fetchFarms();
+    
+    // Setup realtime subscription
+    const channel = supabase
+      .channel('farms-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'farms'
+        },
+        () => {
+          fetchFarms();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchFarms = async () => {
@@ -46,27 +102,45 @@ const FarmMap = () => {
         return;
       }
 
-      const { data, error } = await supabase
+      const { data: farmsData, error: farmsError } = await supabase
         .from("farms")
         .select("*")
         .eq("user_id", user.id);
 
-      if (error) throw error;
+      if (farmsError) throw farmsError;
 
-      const farmsWithCoords = (data || []).filter(
+      const farmsWithCoords = (farmsData || []).filter(
         (farm) => farm.latitude !== null && farm.longitude !== null
       );
 
-      setFarms(farmsWithCoords);
+      // Fetch latest soil health reports for each farm
+      const farmsWithHealth = await Promise.all(
+        farmsWithCoords.map(async (farm) => {
+          const { data: reports } = await supabase
+            .from("soil_health_reports")
+            .select("health_score, created_at")
+            .eq("farm_id", farm.id)
+            .order("created_at", { ascending: false })
+            .limit(1);
 
-      if (farmsWithCoords.length > 0) {
+          return {
+            ...farm,
+            health_score: reports?.[0]?.health_score || null,
+            latest_report_date: reports?.[0]?.created_at || null,
+          };
+        })
+      );
+
+      setFarms(farmsWithHealth);
+
+      if (farmsWithHealth.length > 0) {
         // Calculate center of all farms
         const avgLat =
-          farmsWithCoords.reduce((sum, farm) => sum + (farm.latitude || 0), 0) /
-          farmsWithCoords.length;
+          farmsWithHealth.reduce((sum, farm) => sum + (farm.latitude || 0), 0) /
+          farmsWithHealth.length;
         const avgLng =
-          farmsWithCoords.reduce((sum, farm) => sum + (farm.longitude || 0), 0) /
-          farmsWithCoords.length;
+          farmsWithHealth.reduce((sum, farm) => sum + (farm.longitude || 0), 0) /
+          farmsWithHealth.length;
         setMapCenter([avgLat, avgLng]);
       } else {
         // Default to Kenya's approximate center
@@ -133,13 +207,22 @@ const FarmMap = () => {
                         <Marker
                           key={farm.id}
                           position={[farm.latitude!, farm.longitude!] as LatLngExpression}
+                          icon={createCustomMarker(farm.health_score)}
                         >
                           <Popup>
-                            <div className="p-2">
+                            <div className="p-2 min-w-[200px]">
                               <h3 className="font-semibold text-base">{farm.name}</h3>
                               <p className="text-sm text-muted-foreground mt-1">
                                 {farm.location}
                               </p>
+                              {farm.health_score !== null && farm.health_score !== undefined && (
+                                <div className="mt-2 flex items-center gap-2">
+                                  <Activity className="h-4 w-4" style={{ color: getHealthColor(farm.health_score) }} />
+                                  <span className="text-sm font-medium">
+                                    Health: {farm.health_score}/100 ({getHealthLabel(farm.health_score)})
+                                  </span>
+                                </div>
+                              )}
                               {farm.size_hectares && (
                                 <p className="text-sm mt-1">
                                   Size: {farm.size_hectares} hectares
@@ -161,6 +244,34 @@ const FarmMap = () => {
             <div className="space-y-4">
               <Card className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5" />
+                    Farm Health Legend
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {[
+                      { label: "Excellent (80-100)", color: "#10B981" },
+                      { label: "Good (60-79)", color: "#F59E0B" },
+                      { label: "Fair (40-59)", color: "#F97316" },
+                      { label: "Poor (0-39)", color: "#EF4444" },
+                      { label: "No Data", color: "#6B7280" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center gap-2">
+                        <div
+                          className="w-4 h-4 rounded-full"
+                          style={{ backgroundColor: item.color }}
+                        />
+                        <span className="text-sm">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
                   <CardTitle>Your Farms</CardTitle>
                   <CardDescription>
                     {farms.length} {farms.length === 1 ? "farm" : "farms"} with GPS coordinates
@@ -177,17 +288,34 @@ const FarmMap = () => {
                         }}
                       >
                         <div className="flex items-start gap-2">
-                          <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                          <div
+                            className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
+                            style={{ backgroundColor: getHealthColor(farm.health_score) }}
+                          />
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium text-sm truncate">{farm.name}</p>
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="font-medium text-sm truncate">{farm.name}</p>
+                              {farm.health_score !== null && farm.health_score !== undefined && (
+                                <Badge variant="outline" className="text-xs">
+                                  {farm.health_score}
+                                </Badge>
+                              )}
+                            </div>
                             <p className="text-xs text-muted-foreground truncate">
                               {farm.location}
                             </p>
-                            {farm.size_hectares && (
-                              <p className="text-xs text-muted-foreground mt-1">
-                                {farm.size_hectares} ha
-                              </p>
-                            )}
+                            <div className="flex items-center gap-2 mt-1">
+                              {farm.size_hectares && (
+                                <p className="text-xs text-muted-foreground">
+                                  {farm.size_hectares} ha
+                                </p>
+                              )}
+                              {farm.health_score !== null && farm.health_score !== undefined && (
+                                <p className="text-xs font-medium" style={{ color: getHealthColor(farm.health_score) }}>
+                                  {getHealthLabel(farm.health_score)}
+                                </p>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
