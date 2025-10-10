@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Activity } from "lucide-react";
+import { ArrowLeft, MapPin, Activity, Satellite, Map as MapIcon, Layers } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -69,6 +69,7 @@ const FarmMap = () => {
   const [farms, setFarms] = useState<Farm[]>([]);
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<LatLngExpression>([-0.0236, 37.9062]);
+  const [selectedLayer, setSelectedLayer] = useState<'standard' | 'satellite' | 'terrain'>('standard');
 
   useEffect(() => {
     fetchFarms();
@@ -154,6 +155,28 @@ const FarmMap = () => {
     }
   };
 
+  const getTileLayerUrl = () => {
+    switch (selectedLayer) {
+      case 'satellite':
+        return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      case 'terrain':
+        return 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
+      default:
+        return 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    }
+  };
+
+  const getTileLayerAttribution = () => {
+    switch (selectedLayer) {
+      case 'satellite':
+        return 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+      case 'terrain':
+        return 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>';
+      default:
+        return '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6 max-w-7xl">
@@ -164,7 +187,7 @@ const FarmMap = () => {
           <div>
             <h1 className="text-4xl font-bold text-foreground">Farm Map</h1>
             <p className="text-muted-foreground mt-2">
-              Visualize your farms and their locations
+              Visualize your farms with interactive maps, satellite imagery, and health indicators
             </p>
           </div>
         </div>
@@ -192,16 +215,60 @@ const FarmMap = () => {
           <div className="grid gap-6 lg:grid-cols-3 animate-fade-in-up">
             <div className="lg:col-span-2">
               <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <Layers className="h-5 w-5" />
+                      Interactive Farm Map
+                    </CardTitle>
+                    <div className="flex gap-2">
+                      <Button
+                        variant={selectedLayer === 'standard' ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedLayer('standard')}
+                        className="gap-1"
+                      >
+                        <MapIcon className="h-4 w-4" />
+                        Standard
+                      </Button>
+                      <Button
+                        variant={selectedLayer === 'satellite' ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedLayer('satellite')}
+                        className="gap-1"
+                      >
+                        <Satellite className="h-4 w-4" />
+                        Satellite
+                      </Button>
+                      <Button
+                        variant={selectedLayer === 'terrain' ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedLayer('terrain')}
+                        className="gap-1"
+                      >
+                        <MapPin className="h-4 w-4" />
+                        Terrain
+                      </Button>
+                    </div>
+                  </div>
+                  <CardDescription>
+                    {selectedLayer === 'satellite' && 'Satellite imagery view with real-time farm locations'}
+                    {selectedLayer === 'terrain' && 'Topographic terrain view with elevation data'}
+                    {selectedLayer === 'standard' && 'Standard map view with street details'}
+                  </CardDescription>
+                </CardHeader>
                 <CardContent className="p-0">
                   <div style={{ height: "600px", width: "100%" }}>
                     <MapContainer
                       center={mapCenter}
                       zoom={8}
-                      scrollWheelZoom={false}
+                      scrollWheelZoom={true}
                       style={{ height: "100%", width: "100%" }}
+                      key={selectedLayer}
                     >
                       <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        url={getTileLayerUrl()}
+                        attribution={getTileLayerAttribution()}
                       />
                       {farms.map((farm) => (
                         <Marker
@@ -231,6 +298,11 @@ const FarmMap = () => {
                               {farm.soil_type && (
                                 <p className="text-sm">Soil: {farm.soil_type}</p>
                               )}
+                              {farm.latest_report_date && (
+                                <p className="text-xs text-muted-foreground mt-2">
+                                  Last updated: {new Date(farm.latest_report_date).toLocaleDateString()}
+                                </p>
+                              )}
                             </div>
                           </Popup>
                         </Marker>
@@ -245,7 +317,44 @@ const FarmMap = () => {
               <Card className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
+                    <Satellite className="h-5 w-5" />
+                    Map Layers
+                  </CardTitle>
+                  <CardDescription>
+                    Switch between different map views
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <MapIcon className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Standard Map</p>
+                        <p className="text-xs text-muted-foreground">Traditional street and boundary view</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Satellite className="h-5 w-5 text-accent mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Satellite Imagery</p>
+                        <p className="text-xs text-muted-foreground">High-resolution satellite view for farm analysis</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <MapPin className="h-5 w-5 text-orange-500 mt-0.5" />
+                      <div>
+                        <p className="font-medium text-sm">Terrain Map</p>
+                        <p className="text-xs text-muted-foreground">Topographic view with elevation data</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Activity className="h-5 w-5" />
                     Farm Health Legend
                   </CardTitle>
                 </CardHeader>
