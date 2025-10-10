@@ -968,9 +968,7 @@ You can also deploy to your own infrastructure:
 
 **Made with 💚 by farmers, for farmers**
 
-[![Star on GitHub](https://img.shields.io/github/stars/yourusername/agroregren?style=social)](https://github.com/yourusername/agroregren)
-[![Follow on Twitter](https://img.shields.io/twitter/follow/agroregren?style=social)](https://twitter.com/agroregren)
-[![Join Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?style=social&logo=discord)](https://discord.gg/agroregren)
+[![Star on GitHub](https://img.shields.io/github/stars/lewiii254/agroregren?style=social)](https://github.com/yourusername/agroregren)
 
 ---
 
@@ -988,12 +986,11 @@ You can also deploy to your own infrastructure:
 
 ### 🌟 Project Stats
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/agroregren)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/agroregren)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/agroregren)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/agroregren)
-![GitHub license](https://img.shields.io/github/license/yourusername/agroregren)
+![GitHub stars](https://img.shields.io/github/stars/lewiii254/agroregren)
+![GitHub forks](https://img.shields.io/github/forks/lewiii254/agroregren)
+![GitHub issues](https://img.shields.io/github/issues/lewiii254/agroregren)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/lewiii254/agroregren)
+![GitHub license](https://img.shields.io/github/license/lewiii254/agroregren)
 
-**Built with** [Lovable](https://lovable.dev) 💜 | **Powered by** [Supabase](https://supabase.com) 🔥
 
 </div>
