@@ -420,7 +420,7 @@ agroregren/
 
 ## 🤖 AI Integration
 
-### Lovable AI - Gemini 2.5 Flash
+### Gemini 2.5 Flash
 
 AgroReGen uses **Google Gemini 2.5 Flash** for AI-powered features:
 
@@ -825,14 +825,6 @@ SOFTWARE.
 ---
 
 ## 👥 Team
-
-### 🌟 Core Contributors
-
-**Project Creator** 👨‍💻
-- Built with ❤️ using [Lovable](https://lovable.dev)
-- AI-assisted development platform
-- No-code to full-code capabilities
-
 ### 🤝 Want to Join the Team?
 
 We're always looking for passionate contributors:
@@ -850,7 +842,6 @@ Contact us to get involved!
 
 ### 💚 Special Thanks To:
 
-- **Lovable** 💜 - For the amazing AI-powered development platform
 - **Supabase** 🔥 - For the powerful backend infrastructure
 - **Google Gemini** 🤖 - For advanced AI capabilities
 - **Shadcn** 🎭 - For beautiful, accessible UI components
@@ -909,23 +900,6 @@ This project was inspired by:
 
 ## 🚀 Deployment
 
-### Deploy with Lovable
-
-This project is built with Lovable and can be deployed instantly:
-
-1. Open your [Lovable Project](https://lovable.dev/projects/9a626c89-80cd-4880-8799-c6af62ccb6ff)
-2. Click **Share** → **Publish**
-3. Your app is live! 🎉
-
-### Custom Domain
-
-Connect your own domain:
-1. Navigate to **Project** → **Settings** → **Domains**
-2. Click **Connect Domain**
-3. Follow the DNS configuration steps
-4. Wait for SSL certificate provisioning
-
-Read more: [Custom Domain Setup](https://docs.lovable.dev/features/custom-domain)
 
 ### Self-Hosting
 
