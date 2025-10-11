@@ -143,16 +143,21 @@ const CommunityHub = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-purple/5 to-background">
       <div className="container mx-auto p-6 max-w-4xl">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 animate-fade-in">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => navigate("/dashboard")}
+              className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
+            >
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="text-4xl font-bold text-foreground">Community Hub</h1>
-              <p className="text-muted-foreground mt-2">
+              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">Community Hub</h1>
+              <p className="text-lg text-muted-foreground mt-2">
                 Share knowledge and learn from fellow farmers
               </p>
             </div>
@@ -160,48 +165,54 @@ const CommunityHub = () => {
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-gradient-to-r from-purple to-primary hover:from-purple/90 hover:to-primary/90 text-white shadow-medium hover:shadow-strong hover:scale-110 transition-all duration-300">
                 <Plus className="h-4 w-4 mr-2" />
                 New Post
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="border-2 border-purple/20">
               <DialogHeader>
-                <DialogTitle>Create a New Post</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-2xl bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">Create a New Post</DialogTitle>
+                <DialogDescription className="text-base">
                   Share your farming tips and experiences with the community
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 mt-4">
                 <div>
-                  <Label htmlFor="title">Title</Label>
+                  <Label htmlFor="title" className="text-base font-semibold">Title</Label>
                   <Input
                     id="title"
                     placeholder="Post title"
                     value={newPost.title}
                     onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                    className="h-12 border-2 focus:border-purple transition-colors"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category" className="text-base font-semibold">Category</Label>
                   <Input
                     id="category"
                     placeholder="e.g., Soil Health, Crop Rotation"
                     value={newPost.category}
                     onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
+                    className="h-12 border-2 focus:border-purple transition-colors"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="content">Content</Label>
+                  <Label htmlFor="content" className="text-base font-semibold">Content</Label>
                   <Textarea
                     id="content"
                     placeholder="Share your thoughts..."
                     rows={6}
                     value={newPost.content}
                     onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                    className="border-2 focus:border-purple transition-colors"
                   />
                 </div>
-                <Button onClick={handleCreatePost} className="w-full">
+                <Button 
+                  onClick={handleCreatePost} 
+                  className="w-full h-12 bg-gradient-to-r from-purple to-primary hover:from-purple/90 hover:to-primary/90 text-white shadow-medium hover:shadow-strong hover:scale-105 transition-all duration-300"
+                >
                   Create Post
                 </Button>
               </div>
@@ -225,47 +236,62 @@ const CommunityHub = () => {
             ))}
           </div>
         ) : posts.length === 0 ? (
-          <Card>
-            <CardContent className="flex flex-col items-center justify-center py-12">
-              <MessageSquare className="h-16 w-16 text-muted-foreground mb-4" />
-              <p className="text-xl font-semibold text-foreground">No posts yet</p>
-              <p className="text-muted-foreground mt-2">
+          <Card className="border-2 border-purple/20">
+            <CardContent className="flex flex-col items-center justify-center py-16">
+              <div className="p-4 rounded-full bg-gradient-to-br from-purple/20 to-primary/20 mb-6">
+                <MessageSquare className="h-16 w-16 text-purple" />
+              </div>
+              <p className="text-2xl font-bold bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">No posts yet</p>
+              <p className="text-lg text-muted-foreground mt-3">
                 Be the first to share your farming knowledge!
               </p>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <Card key={post.id} className="hover:shadow-lg transition-all duration-300 animate-fade-in">
+          <div className="space-y-6">
+            {posts.map((post, index) => (
+              <Card 
+                key={post.id} 
+                className="hover:shadow-strong transition-all duration-300 animate-fade-in-up border-2 border-purple/10 hover:border-purple/30 hover:-translate-y-1"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-xl">{post.title}</CardTitle>
-                      <CardDescription className="flex items-center gap-2 mt-2">
-                        <User className="h-4 w-4" />
-                        {profiles[post.user_id] || "Anonymous"}
-                        <span className="mx-2">•</span>
-                        {new Date(post.created_at).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
+                      <CardTitle className="text-2xl bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">{post.title}</CardTitle>
+                      <CardDescription className="flex items-center gap-2 mt-3 text-base">
+                        <div className="p-1.5 rounded-lg bg-purple/20">
+                          <User className="h-4 w-4 text-purple" />
+                        </div>
+                        <span className="font-semibold">{profiles[post.user_id] || "Anonymous"}</span>
+                        <span className="mx-2 text-muted-foreground">•</span>
+                        <span className="text-muted-foreground">
+                          {new Date(post.created_at).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </span>
                       </CardDescription>
                     </div>
                     {post.category && (
-                      <Badge variant="outline">{post.category}</Badge>
+                      <Badge 
+                        variant="outline" 
+                        className="bg-gradient-to-r from-purple/10 to-primary/10 border-purple/30 text-purple font-semibold"
+                      >
+                        {post.category}
+                      </Badge>
                     )}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-foreground whitespace-pre-wrap mb-4">{post.content}</p>
-                  <div className="flex items-center gap-4 border-t pt-4">
+                  <p className="text-foreground whitespace-pre-wrap mb-6 leading-relaxed">{post.content}</p>
+                  <div className="flex items-center gap-4 border-t-2 border-border pt-5">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleLike(post.id, post.likes)}
-                      className="hover:text-destructive transition-colors"
+                      className="hover:text-destructive transition-colors hover:scale-110"
                     >
                       <Heart className="h-4 w-4 mr-1" />
                       {post.likes}
