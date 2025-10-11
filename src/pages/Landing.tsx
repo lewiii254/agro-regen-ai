@@ -256,7 +256,7 @@ const Landing = () => {
         
         {/* Floating Decorative Elements */}
         <div className="absolute top-10 right-20 opacity-20">
-          <div className="w-32 h-32 border-4 border-white rounded-full animate-spin-slow" />
+          <div className="w-32 h-32 border-4 border-white rounded-full animate-rotate-slow" />
         </div>
         <div className="absolute bottom-20 left-20 opacity-20">
           <div className="w-24 h-24 border-4 border-white rounded-lg animate-rotate-slow" />
