@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Activity, Satellite, Map as MapIcon, Layers } from "lucide-react";
+import { ArrowLeft, MapPin, Activity, Satellite, Map as MapIcon, Layers, TrendingUp, Calendar } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { toast } from "sonner";
 import L from "leaflet";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 // Fix for default marker icon
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -29,6 +30,7 @@ interface Farm {
   size_hectares: number | null;
   health_score?: number | null;
   latest_report_date?: string | null;
+  health_history?: { date: string; score: number }[];
 }
 
 const getHealthColor = (score: number | null | undefined): string => {
@@ -70,6 +72,7 @@ const FarmMap = () => {
   const [loading, setLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState<LatLngExpression>([-0.0236, 37.9062]);
   const [selectedLayer, setSelectedLayer] = useState<'standard' | 'satellite' | 'terrain'>('standard');
+  const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
 
   useEffect(() => {
     fetchFarms();
@@ -114,7 +117,7 @@ const FarmMap = () => {
         (farm) => farm.latitude !== null && farm.longitude !== null
       );
 
-      // Fetch latest soil health reports for each farm
+      // Fetch latest soil health reports and history for each farm
       const farmsWithHealth = await Promise.all(
         farmsWithCoords.map(async (farm) => {
           const { data: reports } = await supabase
@@ -122,12 +125,18 @@ const FarmMap = () => {
             .select("health_score, created_at")
             .eq("farm_id", farm.id)
             .order("created_at", { ascending: false })
-            .limit(1);
+            .limit(6);
+
+          const health_history = reports?.map(r => ({
+            date: new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+            score: r.health_score || 0
+          })).reverse() || [];
 
           return {
             ...farm,
             health_score: reports?.[0]?.health_score || null,
             latest_report_date: reports?.[0]?.created_at || null,
+            health_history,
           };
         })
       );
@@ -394,6 +403,7 @@ const FarmMap = () => {
                         className="p-3 rounded-lg border bg-card hover:bg-accent hover:scale-105 transition-all duration-200 cursor-pointer animate-scale-in"
                         onClick={() => {
                           setMapCenter([farm.latitude!, farm.longitude!] as LatLngExpression);
+                          setSelectedFarm(farm);
                         }}
                       >
                         <div className="flex items-start gap-2">
@@ -433,6 +443,67 @@ const FarmMap = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Health Trends Card */}
+            {selectedFarm && selectedFarm.health_history && selectedFarm.health_history.length > 0 && (
+              <Card className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="h-5 w-5" />
+                    Health Trend - {selectedFarm.name}
+                  </CardTitle>
+                  <CardDescription>
+                    Historical soil health scores over time
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <LineChart data={selectedFarm.health_history}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis 
+                        dataKey="date" 
+                        stroke="hsl(var(--muted-foreground))" 
+                        fontSize={12}
+                      />
+                      <YAxis 
+                        stroke="hsl(var(--muted-foreground))" 
+                        domain={[0, 100]}
+                        fontSize={12}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: "hsl(var(--card))", 
+                          border: "1px solid hsl(var(--border))",
+                          borderRadius: "var(--radius)"
+                        }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="score" 
+                        stroke="hsl(var(--primary))" 
+                        strokeWidth={2}
+                        name="Health Score"
+                        dot={{ fill: "hsl(var(--primary))", r: 4 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <div className="mt-4 flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Calendar className="h-4 w-4" />
+                      <span>Last {selectedFarm.health_history.length} reports</span>
+                    </div>
+                    {selectedFarm.health_score && (
+                      <Badge 
+                        variant="outline" 
+                        style={{ color: getHealthColor(selectedFarm.health_score) }}
+                      >
+                        Current: {selectedFarm.health_score}/100
+                      </Badge>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         )}
       </div>
