@@ -9,7 +9,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const MarketPriceIntelligence = () => {
   const navigate = useNavigate();
-  const [marketPrices, setMarketPrices] = useState<any[]>([]);
+  const [marketPrices, setMarketPrices] = useState<Record<string, Array<{
+    crop_type: string;
+    region: string;
+    price_per_kg: number;
+    currency: string;
+    market_trend: string;
+    recorded_date: string;
+  }>>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,7 +63,14 @@ const MarketPriceIntelligence = () => {
       if (error) throw error;
       
       // Group by crop type
-      const groupedData = data?.reduce((acc: any, curr: any) => {
+      const groupedData = data?.reduce((acc: Record<string, Array<{
+        crop_type: string;
+        region: string;
+        price_per_kg: number;
+        currency: string;
+        market_trend: string;
+        recorded_date: string;
+      }>>, curr) => {
         if (!acc[curr.crop_type]) {
           acc[curr.crop_type] = [];
         }
@@ -135,7 +149,7 @@ const MarketPriceIntelligence = () => {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(marketPrices).map(([cropType, prices]: [string, any]) => {
+            {Object.entries(marketPrices).map(([cropType, prices]) => {
               const latestPrice = prices[0];
               return (
                 <Card key={cropType} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1">

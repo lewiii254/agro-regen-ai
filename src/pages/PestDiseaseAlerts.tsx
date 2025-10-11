@@ -13,9 +13,19 @@ import { Badge } from "@/components/ui/badge";
 
 const PestDiseaseAlerts = () => {
   const navigate = useNavigate();
-  const [farms, setFarms] = useState<any[]>([]);
+  const [farms, setFarms] = useState<Array<{ id: string; name: string; location: string }>>([]);
   const [selectedFarmId, setSelectedFarmId] = useState<string>("");
-  const [alerts, setAlerts] = useState<any[]>([]);
+  const [alerts, setAlerts] = useState<Array<{
+    id: string;
+    alert_type: string;
+    severity: string;
+    pest_disease_name: string;
+    affected_area: string;
+    symptoms: string;
+    treatment_recommendations: string;
+    detected_date: string;
+    is_resolved: boolean;
+  }>>([]);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     alertType: "",

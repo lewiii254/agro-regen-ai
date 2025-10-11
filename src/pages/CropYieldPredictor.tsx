@@ -12,9 +12,16 @@ import { Progress } from "@/components/ui/progress";
 
 const CropYieldPredictor = () => {
   const navigate = useNavigate();
-  const [farms, setFarms] = useState<any[]>([]);
+  const [farms, setFarms] = useState<Array<{ id: string; name: string; location: string }>>([]);
   const [selectedFarmId, setSelectedFarmId] = useState<string>("");
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<Array<{
+    id: string;
+    crop_type: string;
+    predicted_yield: string;
+    confidence_score: string;
+    planting_date: string;
+    expected_harvest_date: string;
+  }>>([]);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     cropType: "",

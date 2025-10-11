@@ -9,7 +9,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const LearningHub = () => {
   const navigate = useNavigate();
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<Array<{
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    content_type: string;
+    content_url: string;
+    difficulty_level: string;
+    duration_minutes: number;
+    views: number;
+    likes: number;
+  }>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

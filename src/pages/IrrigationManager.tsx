@@ -12,9 +12,16 @@ import { Badge } from "@/components/ui/badge";
 
 const IrrigationManager = () => {
   const navigate = useNavigate();
-  const [farms, setFarms] = useState<any[]>([]);
+  const [farms, setFarms] = useState<Array<{ id: string; name: string; location: string }>>([]);
   const [selectedFarmId, setSelectedFarmId] = useState<string>("");
-  const [schedules, setSchedules] = useState<any[]>([]);
+  const [schedules, setSchedules] = useState<Array<{
+    id: string;
+    schedule_name: string;
+    water_amount_liters: number;
+    frequency: string;
+    next_irrigation_date: string;
+    status: string;
+  }>>([]);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     scheduleName: "",
