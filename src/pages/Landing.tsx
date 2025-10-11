@@ -18,6 +18,7 @@ const Landing = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Animated Background with Gradient Overlay */}
         <div 
           className="absolute inset-0 z-0"
           style={{
@@ -29,10 +30,51 @@ const Landing = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-accent/85 to-primary/90 animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
         </div>
         
+        {/* Floating Animated Particles/Icons */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Floating Leaf Icons */}
+          <div className="absolute top-20 left-10 text-white/10 animate-float">
+            <Leaf className="h-20 w-20" />
+          </div>
+          <div className="absolute top-40 right-20 text-white/10 animate-float-delayed">
+            <Sprout className="h-24 w-24" />
+          </div>
+          <div className="absolute bottom-32 left-1/4 text-white/10 animate-float" style={{ animationDelay: '1s' }}>
+            <CloudRain className="h-16 w-16" />
+          </div>
+          <div className="absolute bottom-20 right-1/3 text-white/10 animate-float-delayed" style={{ animationDelay: '1.5s' }}>
+            <Leaf className="h-12 w-12" />
+          </div>
+          
+          {/* Animated Circuit-like Pattern Overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <circle cx="50" cy="50" r="2" fill="white" className="animate-pulse" />
+                    <line x1="0" y1="50" x2="100" y2="50" stroke="white" strokeWidth="0.5" opacity="0.3" />
+                    <line x1="50" y1="0" x2="50" y2="100" stroke="white" strokeWidth="0.5" opacity="0.3" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#circuit)" />
+              </svg>
+            </div>
+          </div>
+          
+          {/* Animated Data Stream Effect */}
+          <div className="absolute top-1/4 left-0 w-px h-32 bg-gradient-to-b from-transparent via-white/30 to-transparent animate-slide-up" style={{ animationDelay: '0.5s' }} />
+          <div className="absolute top-1/3 right-1/4 w-px h-24 bg-gradient-to-b from-transparent via-white/30 to-transparent animate-slide-up" style={{ animationDelay: '1s' }} />
+          <div className="absolute bottom-1/3 left-1/3 w-px h-28 bg-gradient-to-b from-transparent via-white/30 to-transparent animate-slide-up" style={{ animationDelay: '1.5s' }} />
+        </div>
+        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6 animate-fade-in">
-              <Sprout className="h-14 w-14 text-white animate-float" />
+              <div className="relative">
+                <Sprout className="h-14 w-14 text-white animate-pulse-scale" />
+                <div className="absolute inset-0 animate-glow-pulse rounded-full" />
+              </div>
               <h1 className="text-6xl md:text-7xl font-bold text-white">AgroReGen</h1>
             </div>
             
@@ -47,11 +89,13 @@ const Landing = () => {
             <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <Button 
                 size="lg" 
-                className="bg-white text-primary hover:bg-white/95 font-semibold px-10 py-7 text-lg shadow-strong hover:scale-105 transition-all duration-300 group"
+                className="bg-white text-primary hover:bg-white/95 font-semibold px-10 py-7 text-lg shadow-strong hover:scale-105 transition-all duration-300 group relative overflow-hidden"
                 asChild
               >
                 <Link to="/auth">
-                  Start Your Journey <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="relative z-10">Start Your Journey</span>
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </Link>
               </Button>
               
@@ -69,8 +113,13 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-background via-accent-light/20 to-background">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-gradient-to-b from-background via-accent-light/20 to-background relative overflow-hidden">
+        {/* Animated Background Blobs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-primary-glow/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: '4s' }} />
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20 animate-fade-in-up">
             <h2 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">
               Everything You Need for Regenerative Farming
@@ -81,9 +130,11 @@ const Landing = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.1s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <Sprout className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <Sprout className="h-8 w-8 text-white animate-wiggle" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-primary-glow opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">AI Soil Analyzer</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -91,9 +142,11 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.2s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <CloudRain className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <CloudRain className="h-8 w-8 text-white animate-bounce-subtle" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent to-primary opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors">Climate Prediction</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -101,9 +154,11 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.3s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <TrendingUp className="h-8 w-8 text-white animate-pulse" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-accent opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">Yield Prediction</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -111,9 +166,11 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.4s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary-glow flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <Leaf className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.4s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary-glow flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <Leaf className="h-8 w-8 text-white animate-float" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent to-primary-glow opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors">AI Farm Advisor</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -121,9 +178,11 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.5s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <Users className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.5s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <Users className="h-8 w-8 text-white animate-pulse-scale" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-accent opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">Community Hub</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -131,9 +190,11 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.6s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
-                <MapPin className="h-8 w-8 text-white" />
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.6s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
+                <MapPin className="h-8 w-8 text-white animate-bounce-subtle" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent to-primary opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors">Farm Mapping</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -141,11 +202,13 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.7s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.7s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                 </svg>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-blue-600 transition-colors">Smart Irrigation</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -153,11 +216,13 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.8s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.8s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-red-600 transition-colors">Pest & Disease Detection</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -165,11 +230,13 @@ const Landing = () => {
               </p>
             </Card>
 
-            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.9s' }}>
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group relative overflow-hidden" style={{ animationDelay: '0.9s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300 relative">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 opacity-50 blur-md group-hover:blur-lg transition-all" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-emerald-600 transition-colors">Market Intelligence</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -182,9 +249,19 @@ const Landing = () => {
 
       {/* Benefits Section */}
       <section className="py-24 bg-gradient-to-br from-primary via-accent to-primary-glow text-white relative overflow-hidden">
+        {/* Animated Pattern Overlay */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
         </div>
+        
+        {/* Floating Decorative Elements */}
+        <div className="absolute top-10 right-20 opacity-20">
+          <div className="w-32 h-32 border-4 border-white rounded-full animate-spin-slow" />
+        </div>
+        <div className="absolute bottom-20 left-20 opacity-20">
+          <div className="w-24 h-24 border-4 border-white rounded-lg animate-rotate-slow" />
+        </div>
+        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-5xl font-bold mb-16 text-center animate-fade-in-up">
@@ -206,8 +283,8 @@ const Landing = () => {
                 "Sustainable agriculture practices",
                 "Increased crop yields & soil health"
               ].map((benefit, index) => (
-                <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 animate-fade-in-up hover:scale-105" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <CheckCircle className="h-7 w-7 text-white flex-shrink-0 mt-1" />
+                <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 animate-fade-in-up hover:scale-105 group" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CheckCircle className="h-7 w-7 text-white flex-shrink-0 mt-1 group-hover:animate-pulse" />
                   <p className="text-lg text-white/98 font-medium">{benefit}</p>
                 </div>
               ))}
@@ -217,8 +294,14 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-accent-light/30 via-background to-background relative">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-24 bg-gradient-to-b from-accent-light/30 via-background to-background relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-blob" />
+          <div className="absolute bottom-1/4 right-10 w-72 h-72 bg-accent/5 rounded-full blur-3xl animate-blob" style={{ animationDelay: '3s' }} />
+        </div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
           <div className="animate-fade-in-up">
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-8">
               Ready to Transform Your Farm?
@@ -228,11 +311,13 @@ const Landing = () => {
             </p>
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary-glow hover:to-accent text-white font-semibold px-14 py-8 text-xl shadow-strong hover:scale-110 hover:shadow-accent transition-all duration-300 group"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary-glow hover:to-accent text-white font-semibold px-14 py-8 text-xl shadow-strong hover:scale-110 hover:shadow-accent transition-all duration-300 group relative overflow-hidden"
               asChild
             >
               <Link to="/auth">
-                Get Started Free <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                <span className="relative z-10">Get Started Free</span>
+                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-right" />
               </Link>
             </Button>
           </div>
