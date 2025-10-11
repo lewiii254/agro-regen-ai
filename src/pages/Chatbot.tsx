@@ -93,69 +93,82 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5 flex flex-col">
       {/* Header */}
-      <header className="bg-card border-b border-border shadow-soft">
+      <header className="bg-gradient-to-r from-card to-card/80 backdrop-blur-md border-b border-border shadow-medium">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => navigate("/dashboard")}
+              className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
+            >
               <ArrowLeft className="h-5 w-5" />
             </Button>
-            <div className="flex items-center gap-2">
-              <Sprout className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">AI Farm Advisor</h1>
+            <div className="flex items-center gap-3 animate-fade-in">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-accent">
+                <Sprout className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AI Farm Advisor</h1>
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={handleSignOut}>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleSignOut}
+            className="hover:bg-destructive hover:text-white transition-all duration-300"
+          >
             <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
+            <span className="hidden sm:inline">Sign Out</span>
           </Button>
         </div>
       </header>
 
       {/* Chat Area */}
       <div className="flex-1 container mx-auto px-4 py-8 flex flex-col">
-        <Card className="flex-1 flex flex-col overflow-hidden">
+        <Card className="flex-1 flex flex-col overflow-hidden border-2 border-primary/10 shadow-strong animate-scale-in">
           <ScrollArea className="flex-1 p-6" ref={scrollRef}>
             <div className="space-y-6">
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`flex gap-4 ${
+                  className={`flex gap-4 animate-fade-in-up ${
                     message.role === "user" ? "justify-end" : "justify-start"
                   }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {message.role === "assistant" && (
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Bot className="h-5 w-5 text-primary" />
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0 shadow-medium animate-pulse-glow" style={{ color: 'white' }}>
+                      <Bot className="h-6 w-6 text-white" />
                     </div>
                   )}
                   
                   <div
-                    className={`max-w-[80%] rounded-2xl px-6 py-4 ${
+                    className={`max-w-[80%] rounded-2xl px-6 py-4 shadow-medium transition-all duration-300 hover:scale-105 ${
                       message.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground"
+                        ? "bg-gradient-to-br from-primary to-accent text-white"
+                        : "bg-gradient-to-br from-card to-secondary/50 text-foreground border-2 border-primary/10"
                     }`}
                   >
                     <p className="leading-relaxed whitespace-pre-wrap">{message.content}</p>
                   </div>
 
                   {message.role === "user" && (
-                    <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <User className="h-5 w-5 text-accent" />
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center flex-shrink-0 shadow-medium">
+                      <User className="h-6 w-6 text-white" />
                     </div>
                   )}
                 </div>
               ))}
               
               {loading && (
-                <div className="flex gap-4 justify-start">
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Bot className="h-5 w-5 text-primary" />
+                <div className="flex gap-4 justify-start animate-fade-in">
+                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0 shadow-medium">
+                    <Bot className="h-6 w-6 text-white" />
                   </div>
-                  <div className="bg-secondary text-secondary-foreground rounded-2xl px-6 py-4">
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                  <div className="bg-gradient-to-br from-card to-secondary/50 border-2 border-primary/10 rounded-2xl px-6 py-4 shadow-medium">
+                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
                   </div>
                 </div>
               )}
@@ -163,20 +176,24 @@ const Chatbot = () => {
           </ScrollArea>
 
           {/* Input Area */}
-          <div className="border-t border-border p-6">
+          <div className="border-t border-border p-6 bg-gradient-to-r from-card/50 to-card">
             <form onSubmit={handleSend} className="flex gap-4">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about soil health, crop rotation, pest control..."
-                className="flex-1"
+                className="flex-1 h-12 text-base border-2 focus:border-primary transition-colors"
                 disabled={loading}
               />
-              <Button type="submit" disabled={loading || !input.trim()}>
-                <Send className="h-4 w-4" />
+              <Button 
+                type="submit" 
+                disabled={loading || !input.trim()}
+                className="h-12 px-6 bg-gradient-to-r from-primary to-accent hover:from-primary-glow hover:to-accent text-white shadow-medium hover:shadow-accent hover:scale-110 transition-all duration-300"
+              >
+                <Send className="h-5 w-5" />
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
+            <p className="text-sm text-muted-foreground mt-3 text-center font-medium">
               Powered by AI · Responses are generated by artificial intelligence
             </p>
           </div>
