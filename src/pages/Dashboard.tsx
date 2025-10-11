@@ -86,13 +86,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+    <div className="min-h-screen bg-gradient-to-br from-background via-accent-light/10 to-background">
       {/* Header */}
-      <header className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
+      <header className="bg-gradient-to-r from-card to-card/80 backdrop-blur-md border-b border-border shadow-medium sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sprout className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">AgroReGen</h1>
+          <div className="flex items-center gap-3 animate-fade-in">
+            <Sprout className="h-10 w-10 text-primary animate-pulse-glow" style={{ color: 'hsl(var(--primary))' }} />
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AgroReGen</h1>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground hidden sm:inline">
@@ -103,7 +103,7 @@ const Dashboard = () => {
               variant="outline"
               size="sm"
               onClick={handleSignOut}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 hover:bg-destructive hover:text-white transition-all duration-300"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign Out</span>
@@ -114,110 +114,138 @@ const Dashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-foreground mb-2">
+        <div className="mb-10 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-3">
             Welcome back, {user?.user_metadata?.full_name || "Farmer"}!
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             Here's an overview of your farm's health and climate conditions
           </p>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-10">
           <Button
-            className="h-auto py-6 flex-col gap-2 hover:scale-105 transition-transform duration-200 animate-fade-in"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 animate-fade-in bg-gradient-to-br from-primary/10 to-accent/10 hover:from-primary hover:to-accent hover:text-white border-2 border-primary/20 hover:border-transparent shadow-medium hover:shadow-accent group"
             variant="outline"
             onClick={() => navigate("/soil-analyzer")}
           >
-            <Sprout className="h-6 w-6" />
-            <span>Soil Analyzer</span>
+            <Sprout className="h-7 w-7 group-hover:animate-bounce-subtle" />
+            <span className="font-semibold">Soil Analyzer</span>
           </Button>
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-destructive/10 to-orange/10 hover:from-destructive hover:to-orange hover:text-white border-2 border-destructive/20 hover:border-transparent shadow-medium group"
             variant="outline"
             onClick={() => navigate("/climate-alerts")}
+            style={{ animationDelay: '0.1s' }}
           >
-            <AlertTriangle className="h-6 w-6" />
-            <span>Climate Alerts</span>
+            <AlertTriangle className="h-7 w-7 group-hover:animate-wave" />
+            <span className="font-semibold">Climate Alerts</span>
           </Button>
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-accent/10 to-primary/10 hover:from-accent hover:to-primary hover:text-white border-2 border-accent/20 hover:border-transparent shadow-medium group"
             variant="outline"
             onClick={() => navigate("/chatbot")}
+            style={{ animationDelay: '0.2s' }}
           >
-            <MessageSquare className="h-6 w-6" />
-            <span>AI Advisor</span>
+            <MessageSquare className="h-7 w-7 group-hover:animate-pulse" />
+            <span className="font-semibold">AI Advisor</span>
           </Button>
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-purple/10 to-primary/10 hover:from-purple hover:to-primary hover:text-white border-2 border-purple/20 hover:border-transparent shadow-medium group"
             variant="outline"
             onClick={() => navigate("/community-hub")}
+            style={{ animationDelay: '0.3s' }}
           >
-            <Users className="h-6 w-6" />
-            <span>Community</span>
+            <Users className="h-7 w-7 group-hover:animate-float" />
+            <span className="font-semibold">Community</span>
           </Button>
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-sky/10 to-accent/10 hover:from-sky hover:to-accent hover:text-white border-2 border-sky/20 hover:border-transparent shadow-medium group"
             variant="outline"
             onClick={() => navigate("/farm-map")}
+            style={{ animationDelay: '0.4s' }}
           >
-            <MapPin className="h-6 w-6" />
-            <span>Farm Map</span>
+            <MapPin className="h-7 w-7 group-hover:animate-bounce-subtle" />
+            <span className="font-semibold">Farm Map</span>
           </Button>
           <Button
-            className="h-auto py-6 flex-col gap-2"
+            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-muted to-primary/10 hover:from-primary hover:to-accent hover:text-white border-2 border-muted-foreground/20 hover:border-transparent shadow-medium group"
             variant="outline"
             onClick={() => navigate("/manage-farms")}
+            style={{ animationDelay: '0.5s' }}
           >
-            <Settings className="h-6 w-6" />
-            <span>Manage Farms</span>
+            <Settings className="h-7 w-7 group-hover:animate-spin" />
+            <span className="font-semibold">Manage Farms</span>
           </Button>
         </div>
 
         {/* Key Metrics */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6 hover:shadow-lg transition-all duration-300 animate-scale-in hover:scale-105">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-muted-foreground">Soil Health Score</h3>
-              <TrendingUp className="h-5 w-5 text-accent" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 animate-scale-in hover:scale-105 bg-gradient-to-br from-accent/5 to-primary/5 border-2 border-accent/20 group relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wide">Soil Health Score</h3>
+                <div className="p-2 rounded-xl bg-accent/20 group-hover:bg-accent/30 transition-colors">
+                  <TrendingUp className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+              <div className="text-5xl font-bold bg-gradient-to-br from-accent to-primary bg-clip-text text-transparent mb-2">87/100</div>
+              <p className="text-sm font-semibold text-accent flex items-center gap-1">
+                <TrendingUp className="h-4 w-4" />
+                +5% from last month
+              </p>
             </div>
-            <div className="text-4xl font-bold text-foreground mb-2">87/100</div>
-            <p className="text-sm text-accent">+5% from last month</p>
           </Card>
 
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-muted-foreground">Moisture Level</h3>
-              <TrendingUp className="h-5 w-5 text-primary" />
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 animate-scale-in hover:scale-105 bg-gradient-to-br from-sky/5 to-primary/5 border-2 border-sky/20 group relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-sky/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wide">Moisture Level</h3>
+                <div className="p-2 rounded-xl bg-primary/20 group-hover:bg-primary/30 transition-colors">
+                  <TrendingUp className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <div className="text-5xl font-bold bg-gradient-to-br from-sky to-primary bg-clip-text text-transparent mb-2">66%</div>
+              <p className="text-sm font-semibold text-primary">Optimal range</p>
             </div>
-            <div className="text-4xl font-bold text-foreground mb-2">66%</div>
-            <p className="text-sm text-primary">Optimal range</p>
           </Card>
 
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-muted-foreground">Active Alerts</h3>
-              <AlertTriangle className="h-5 w-5 text-destructive" />
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 animate-scale-in hover:scale-105 bg-gradient-to-br from-destructive/5 to-orange/5 border-2 border-destructive/20 group relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-destructive/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wide">Active Alerts</h3>
+                <div className="p-2 rounded-xl bg-destructive/20 group-hover:bg-destructive/30 transition-colors">
+                  <AlertTriangle className="h-6 w-6 text-destructive animate-pulse" />
+                </div>
+              </div>
+              <div className="text-5xl font-bold bg-gradient-to-br from-destructive to-orange bg-clip-text text-transparent mb-2">2</div>
+              <p className="text-sm font-semibold text-muted-foreground">1 high, 1 medium</p>
             </div>
-            <div className="text-4xl font-bold text-foreground mb-2">2</div>
-            <p className="text-sm text-muted-foreground">1 high, 1 medium</p>
           </Card>
 
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-muted-foreground">Farms Managed</h3>
-              <MapPin className="h-5 w-5 text-primary" />
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 animate-scale-in hover:scale-105 bg-gradient-to-br from-purple/5 to-primary/5 border-2 border-purple/20 group relative overflow-hidden" style={{ animationDelay: '0.3s' }}>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wide">Farms Managed</h3>
+                <div className="p-2 rounded-xl bg-primary/20 group-hover:bg-primary/30 transition-colors">
+                  <MapPin className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <div className="text-5xl font-bold bg-gradient-to-br from-purple to-primary bg-clip-text text-transparent mb-2">3</div>
+              <p className="text-sm font-semibold text-accent">All monitored</p>
             </div>
-            <div className="text-4xl font-bold text-foreground mb-2">3</div>
-            <p className="text-sm text-accent">All monitored</p>
           </Card>
         </div>
 
         {/* Charts */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-8">
-          <Card className="p-6">
-            <h3 className="text-xl font-bold text-foreground mb-6">Soil Nutrients Trend</h3>
+        <div className="grid lg:grid-cols-2 gap-8 mb-10">
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 border-2 border-primary/10 bg-gradient-to-br from-card to-primary/5 animate-fade-in-up">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-6">Soil Nutrients Trend</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={soilHealthData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -226,19 +254,20 @@ const Dashboard = () => {
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: "hsl(var(--card))", 
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "var(--radius)"
+                    border: "2px solid hsl(var(--primary))",
+                    borderRadius: "var(--radius)",
+                    boxShadow: "var(--shadow-medium)"
                   }}
                 />
-                <Line type="monotone" dataKey="nitrogen" stroke="hsl(var(--primary))" strokeWidth={2} name="Nitrogen" />
-                <Line type="monotone" dataKey="phosphorus" stroke="hsl(var(--accent))" strokeWidth={2} name="Phosphorus" />
-                <Line type="monotone" dataKey="potassium" stroke="hsl(var(--muted-foreground))" strokeWidth={2} name="Potassium" />
+                <Line type="monotone" dataKey="nitrogen" stroke="hsl(var(--primary))" strokeWidth={3} name="Nitrogen" dot={{ fill: "hsl(var(--primary))", r: 5 }} />
+                <Line type="monotone" dataKey="phosphorus" stroke="hsl(var(--accent))" strokeWidth={3} name="Phosphorus" dot={{ fill: "hsl(var(--accent))", r: 5 }} />
+                <Line type="monotone" dataKey="potassium" stroke="hsl(var(--sky))" strokeWidth={3} name="Potassium" dot={{ fill: "hsl(var(--sky))", r: 5 }} />
               </LineChart>
             </ResponsiveContainer>
           </Card>
 
-          <Card className="p-6">
-            <h3 className="text-xl font-bold text-foreground mb-6">Weekly Soil Moisture</h3>
+          <Card className="p-7 hover:shadow-strong transition-all duration-300 border-2 border-accent/10 bg-gradient-to-br from-card to-accent/5 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent mb-6">Weekly Soil Moisture</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={moistureData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -247,20 +276,27 @@ const Dashboard = () => {
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: "hsl(var(--card))", 
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "var(--radius)"
+                    border: "2px solid hsl(var(--accent))",
+                    borderRadius: "var(--radius)",
+                    boxShadow: "var(--shadow-medium)"
                   }}
                 />
-                <Bar dataKey="moisture" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="moisture" fill="url(#colorGradient)" radius={[10, 10, 0, 0]} />
+                <defs>
+                  <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={1} />
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.8} />
+                  </linearGradient>
+                </defs>
               </BarChart>
             </ResponsiveContainer>
           </Card>
         </div>
 
         {/* Farm Health Distribution */}
-        <Card className="p-6">
-          <h3 className="text-xl font-bold text-foreground mb-6">Farm Health Distribution</h3>
-          <div className="flex flex-col md:flex-row items-center gap-8">
+        <Card className="p-7 hover:shadow-strong transition-all duration-300 border-2 border-primary/10 bg-gradient-to-br from-card to-accent/5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-8">Farm Health Distribution</h3>
+          <div className="flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -278,19 +314,25 @@ const Dashboard = () => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: "hsl(var(--card))", 
+                      border: "2px solid hsl(var(--primary))",
+                      borderRadius: "var(--radius)"
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="w-full md:w-1/2 space-y-4">
+            <div className="w-full md:w-1/2 space-y-5">
               {farmHealthDistribution.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-card to-muted/20 hover:to-muted/40 transition-all duration-300 group hover:scale-105">
                   <div 
-                    className="h-4 w-4 rounded-full" 
+                    className="h-6 w-6 rounded-lg group-hover:scale-125 transition-transform shadow-medium" 
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-sm text-foreground font-medium">{item.name}</span>
-                  <span className="text-sm text-muted-foreground ml-auto">{item.value}%</span>
+                  <span className="text-base text-foreground font-bold flex-grow">{item.name}</span>
+                  <span className="text-lg text-muted-foreground font-bold">{item.value}%</span>
                 </div>
               ))}
             </div>
