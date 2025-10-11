@@ -133,6 +133,78 @@ export default {
           "100%": {
             backgroundPosition: "1000px 0"
           }
+        },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0px)"
+          },
+          "50%": {
+            transform: "translateY(-10px)"
+          }
+        },
+        "pulse-glow": {
+          "0%, 100%": {
+            opacity: "1",
+            boxShadow: "0 0 0 0 currentColor"
+          },
+          "50%": {
+            opacity: "0.8",
+            boxShadow: "0 0 20px 5px currentColor"
+          }
+        },
+        "wave": {
+          "0%": {
+            transform: "rotate(0deg)"
+          },
+          "10%": {
+            transform: "rotate(14deg)"
+          },
+          "20%": {
+            transform: "rotate(-8deg)"
+          },
+          "30%": {
+            transform: "rotate(14deg)"
+          },
+          "40%": {
+            transform: "rotate(-4deg)"
+          },
+          "50%": {
+            transform: "rotate(10deg)"
+          },
+          "60%": {
+            transform: "rotate(0deg)"
+          },
+          "100%": {
+            transform: "rotate(0deg)"
+          }
+        },
+        "slide-up": {
+          "0%": {
+            transform: "translateY(100%)",
+            opacity: "0"
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1"
+          }
+        },
+        "scale-up": {
+          "0%": {
+            transform: "scale(0.95)",
+            opacity: "0"
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "1"
+          }
+        },
+        "gradient-shift": {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%"
+          },
+          "50%": {
+            backgroundPosition: "100% 50%"
+          }
         }
       },
       animation: {
@@ -143,7 +215,13 @@ export default {
         "slide-in-right": "slide-in-right 0.4s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
-        "shimmer": "shimmer 2s linear infinite"
+        "shimmer": "shimmer 2s linear infinite",
+        "float": "float 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "wave": "wave 2.5s ease-in-out infinite",
+        "slide-up": "slide-up 0.5s ease-out",
+        "scale-up": "scale-up 0.4s ease-out",
+        "gradient-shift": "gradient-shift 3s ease infinite"
       },
     },
   },
