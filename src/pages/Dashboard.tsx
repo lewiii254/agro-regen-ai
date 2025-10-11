@@ -13,7 +13,8 @@ import {
   AlertTriangle,
   MessageSquare,
   Users,
-  MapPin
+  MapPin,
+  Settings
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { NotificationBell } from "@/components/NotificationBell";
@@ -123,7 +124,7 @@ const Dashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
           <Button
             className="h-auto py-6 flex-col gap-2 hover:scale-105 transition-transform duration-200 animate-fade-in"
             variant="outline"
@@ -163,6 +164,14 @@ const Dashboard = () => {
           >
             <MapPin className="h-6 w-6" />
             <span>Farm Map</span>
+          </Button>
+          <Button
+            className="h-auto py-6 flex-col gap-2"
+            variant="outline"
+            onClick={() => navigate("/manage-farms")}
+          >
+            <Settings className="h-6 w-6" />
+            <span>Manage Farms</span>
           </Button>
         </div>
 

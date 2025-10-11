@@ -215,9 +215,14 @@ const FarmMap = () => {
               <p className="text-muted-foreground mt-2">
                 Add latitude and longitude to your farms to see them on the map
               </p>
-              <Button className="mt-6" onClick={() => navigate("/dashboard")}>
-                Go to Dashboard
-              </Button>
+              <div className="flex gap-4 mt-6">
+                <Button onClick={() => navigate("/manage-farms")}>
+                  Manage Farms
+                </Button>
+                <Button variant="outline" onClick={() => navigate("/dashboard")}>
+                  Go to Dashboard
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ) : (
