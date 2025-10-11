@@ -105,9 +105,9 @@ const Landing = () => {
               <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">Smart Dashboard</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">Yield Prediction</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Monitor all your farms in one place with real-time data visualization and trend analysis for informed decisions.
+                AI-powered crop yield forecasting helps you plan harvest schedules and optimize farm productivity.
               </p>
             </Card>
 
@@ -140,6 +140,42 @@ const Landing = () => {
                 Visualize your farms on interactive maps with detailed health indicators and satellite data integration.
               </p>
             </Card>
+
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.7s' }}>
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+                <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-blue-600 transition-colors">Smart Irrigation</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Optimize water usage with intelligent irrigation scheduling and automated water management recommendations.
+              </p>
+            </Card>
+
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.8s' }}>
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+                <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-red-600 transition-colors">Pest & Disease Detection</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Early warning system for pest and disease outbreaks with AI-powered treatment recommendations.
+              </p>
+            </Card>
+
+            <Card className="p-8 hover:shadow-strong transition-all duration-300 border-border/50 bg-card/80 backdrop-blur-sm animate-fade-in-up hover:-translate-y-2 group" style={{ animationDelay: '0.9s' }}>
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-6 shadow-medium group-hover:scale-110 transition-transform duration-300">
+                <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-emerald-600 transition-colors">Market Intelligence</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Real-time crop price tracking and market trends to help you make informed selling decisions.
+              </p>
+            </Card>
           </div>
         </div>
       </section>
@@ -159,9 +195,13 @@ const Landing = () => {
               {[
                 "AI-powered soil health analysis",
                 "Real-time climate risk predictions",
-                "Personalized regenerative farming advice",
+                "Crop yield forecasting & planning",
+                "Smart irrigation management",
+                "Pest & disease early detection",
+                "Market price intelligence",
                 "Community knowledge sharing",
                 "Interactive farm mapping",
+                "Educational resources & tutorials",
                 "Data-driven decision making",
                 "Sustainable agriculture practices",
                 "Increased crop yields & soil health"
