@@ -194,15 +194,22 @@ const ClimateAlerts = () => {
   const lowSeverityAlerts = alerts.filter(a => a.severity.toLowerCase() === "low");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-sky/5 to-background">
       <div className="container mx-auto p-6 max-w-7xl">
         <div className="flex items-center gap-4 mb-8 animate-fade-in">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => navigate("/dashboard")}
+            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
+          >
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-4xl font-bold text-foreground">⛈️ Climate Prediction Engine</h1>
-            <p className="text-muted-foreground mt-2">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-sky via-primary to-accent bg-clip-text text-transparent">
+              ⛈️ Climate Prediction Engine
+            </h1>
+            <p className="text-lg text-muted-foreground mt-2">
               Hyperlocal weather forecasts and climate risk predictions
             </p>
           </div>
@@ -210,68 +217,81 @@ const ClimateAlerts = () => {
 
         {/* Real-time Weather Dashboard */}
         <div className="grid gap-6 md:grid-cols-4 mb-8 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-strong transition-all duration-300 bg-gradient-to-br from-orange/5 to-card border-2 border-orange/20 hover:scale-105 group">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <Thermometer className="h-8 w-8 text-orange-500" />
-                <Badge variant="secondary">Live</Badge>
+                <div className="p-2 rounded-xl bg-orange/20 group-hover:bg-orange/30 transition-colors">
+                  <Thermometer className="h-8 w-8 text-orange-500 group-hover:animate-pulse" />
+                </div>
+                <Badge variant="secondary" className="bg-orange/20 text-orange-700">Live</Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{weatherData.temperature}°C</div>
-              <p className="text-xs text-muted-foreground mt-1">Temperature</p>
+              <div className="text-4xl font-bold bg-gradient-to-br from-orange-500 to-orange-600 bg-clip-text text-transparent">{weatherData.temperature}°C</div>
+              <p className="text-sm text-muted-foreground mt-1 font-semibold">Temperature</p>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-strong transition-all duration-300 bg-gradient-to-br from-blue-500/5 to-card border-2 border-blue-500/20 hover:scale-105 group">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <Droplets className="h-8 w-8 text-blue-500" />
-                <Badge variant="secondary">Live</Badge>
+                <div className="p-2 rounded-xl bg-blue-500/20 group-hover:bg-blue-500/30 transition-colors">
+                  <Droplets className="h-8 w-8 text-blue-500 group-hover:animate-bounce-subtle" />
+                </div>
+                <Badge variant="secondary" className="bg-blue-500/20 text-blue-700">Live</Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{weatherData.humidity}%</div>
-              <p className="text-xs text-muted-foreground mt-1">Humidity</p>
+              <div className="text-4xl font-bold bg-gradient-to-br from-blue-500 to-blue-600 bg-clip-text text-transparent">{weatherData.humidity}%</div>
+              <p className="text-sm text-muted-foreground mt-1 font-semibold">Humidity</p>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-strong transition-all duration-300 bg-gradient-to-br from-indigo-500/5 to-card border-2 border-indigo-500/20 hover:scale-105 group">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CloudRain className="h-8 w-8 text-indigo-500" />
-                <Badge variant="secondary">Live</Badge>
+                <div className="p-2 rounded-xl bg-indigo-500/20 group-hover:bg-indigo-500/30 transition-colors">
+                  <CloudRain className="h-8 w-8 text-indigo-500 group-hover:animate-float" />
+                </div>
+                <Badge variant="secondary" className="bg-indigo-500/20 text-indigo-700">Live</Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{weatherData.precipitation}mm</div>
-              <p className="text-xs text-muted-foreground mt-1">Precipitation</p>
+              <div className="text-4xl font-bold bg-gradient-to-br from-indigo-500 to-indigo-600 bg-clip-text text-transparent">{weatherData.precipitation}mm</div>
+              <p className="text-sm text-muted-foreground mt-1 font-semibold">Precipitation</p>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-strong transition-all duration-300 bg-gradient-to-br from-teal-500/5 to-card border-2 border-teal-500/20 hover:scale-105 group">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <Wind className="h-8 w-8 text-teal-500" />
-                <Badge variant="secondary">Live</Badge>
+                <div className="p-2 rounded-xl bg-teal-500/20 group-hover:bg-teal-500/30 transition-colors">
+                  <Wind className="h-8 w-8 text-teal-500 group-hover:animate-wave" />
+                </div>
+                <Badge variant="secondary" className="bg-teal-500/20 text-teal-700">Live</Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{weatherData.windSpeed} km/h</div>
-              <p className="text-xs text-muted-foreground mt-1">Wind Speed</p>
+              <div className="text-4xl font-bold bg-gradient-to-br from-teal-500 to-teal-600 bg-clip-text text-transparent">{weatherData.windSpeed} km/h</div>
+              <p className="text-sm text-muted-foreground mt-1 font-semibold">Wind Speed</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Drought Risk Indicator */}
-        <Card className="mb-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+        <Card className="mb-8 animate-fade-in-up border-2 border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-card hover:shadow-strong transition-all duration-300" style={{ animationDelay: '200ms' }}>
           <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Droplets className="h-6 w-6 text-blue-600" />
-                <CardTitle>Drought Risk Assessment</CardTitle>
+                <div className="p-3 rounded-xl bg-blue-500/20">
+                  <Droplets className="h-7 w-7 text-blue-600 animate-pulse" />
+                </div>
+                <CardTitle className="text-2xl">Drought Risk Assessment</CardTitle>
               </div>
-              <Badge variant={droughtRisk.level === "High" || droughtRisk.level === "Extreme" ? "destructive" : droughtRisk.level === "Medium" ? "secondary" : "outline"}>
+              <Badge 
+                variant={droughtRisk.level === "High" || droughtRisk.level === "Extreme" ? "destructive" : droughtRisk.level === "Medium" ? "secondary" : "outline"}
+                className="text-base px-4 py-1"
+              >
                 {droughtRisk.level} Risk
               </Badge>
             </div>
