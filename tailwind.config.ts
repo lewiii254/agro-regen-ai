@@ -250,14 +250,6 @@ export default {
             transform: "translateY(-15px)"
           }
         },
-        "spin-slow": {
-          "0%": {
-            transform: "rotate(0deg)"
-          },
-          "100%": {
-            transform: "rotate(360deg)"
-          }
-        },
         "wiggle": {
           "0%, 100%": {
             transform: "rotate(-3deg)"
@@ -312,7 +304,6 @@ export default {
         "scale-up": "scale-up 0.4s ease-out",
         "gradient-shift": "gradient-shift 3s ease infinite",
         "rotate-slow": "rotate-slow 20s linear infinite",
-        "spin-slow": "spin-slow 15s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "blob": "blob 7s ease-in-out infinite"
       },
