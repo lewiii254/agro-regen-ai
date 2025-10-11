@@ -17,8 +17,8 @@ const CropYieldPredictor = () => {
   const [predictions, setPredictions] = useState<Array<{
     id: string;
     crop_type: string;
-    predicted_yield: string;
-    confidence_score: string;
+    predicted_yield: number;
+    confidence_score: number;
     planting_date: string;
     expected_harvest_date: string;
   }>>([]);
@@ -104,8 +104,8 @@ const CropYieldPredictor = () => {
         .insert({
           farm_id: selectedFarmId,
           crop_type: formData.cropType,
-          predicted_yield: predictedYield.toFixed(2),
-          confidence_score: confidence.toFixed(2),
+          predicted_yield: parseFloat(predictedYield.toFixed(2)),
+          confidence_score: parseFloat(confidence.toFixed(2)),
           planting_date: formData.plantingDate,
           expected_harvest_date: formData.expectedHarvestDate,
           factors: {
@@ -252,11 +252,11 @@ const CropYieldPredictor = () => {
                             {pred.predicted_yield} tons/ha
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            Confidence: {(parseFloat(pred.confidence_score) * 100).toFixed(0)}%
+                            Confidence: {(pred.confidence_score * 100).toFixed(0)}%
                           </p>
                         </div>
                       </div>
-                      <Progress value={parseFloat(pred.confidence_score) * 100} className="h-2" />
+                      <Progress value={pred.confidence_score * 100} className="h-2" />
                       {pred.expected_harvest_date && (
                         <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
                           <Calendar className="h-4 w-4" />
