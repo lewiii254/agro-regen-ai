@@ -12,6 +12,11 @@ import ClimateAlerts from "./pages/ClimateAlerts";
 import CommunityHub from "./pages/CommunityHub";
 import FarmMap from "./pages/FarmMap";
 import ManageFarms from "./pages/ManageFarms";
+import CropYieldPredictor from "./pages/CropYieldPredictor";
+import IrrigationManager from "./pages/IrrigationManager";
+import PestDiseaseAlerts from "./pages/PestDiseaseAlerts";
+import MarketPriceIntelligence from "./pages/MarketPriceIntelligence";
+import LearningHub from "./pages/LearningHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +37,11 @@ const App = () => (
           <Route path="/community-hub" element={<CommunityHub />} />
           <Route path="/farm-map" element={<FarmMap />} />
           <Route path="/manage-farms" element={<ManageFarms />} />
+          <Route path="/crop-yield" element={<CropYieldPredictor />} />
+          <Route path="/irrigation" element={<IrrigationManager />} />
+          <Route path="/pest-disease" element={<PestDiseaseAlerts />} />
+          <Route path="/market-prices" element={<MarketPriceIntelligence />} />
+          <Route path="/learning-hub" element={<LearningHub />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

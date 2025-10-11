@@ -123,61 +123,119 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-10">
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 animate-fade-in bg-gradient-to-br from-primary/10 to-accent/10 hover:from-primary hover:to-accent hover:text-white border-2 border-primary/20 hover:border-transparent shadow-medium hover:shadow-accent group"
-            variant="outline"
-            onClick={() => navigate("/soil-analyzer")}
-          >
-            <Sprout className="h-7 w-7 group-hover:animate-bounce-subtle" />
-            <span className="font-semibold">Soil Analyzer</span>
-          </Button>
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-destructive/10 to-orange/10 hover:from-destructive hover:to-orange hover:text-white border-2 border-destructive/20 hover:border-transparent shadow-medium group"
-            variant="outline"
-            onClick={() => navigate("/climate-alerts")}
-            style={{ animationDelay: '0.1s' }}
-          >
-            <AlertTriangle className="h-7 w-7 group-hover:animate-wave" />
-            <span className="font-semibold">Climate Alerts</span>
-          </Button>
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-accent/10 to-primary/10 hover:from-accent hover:to-primary hover:text-white border-2 border-accent/20 hover:border-transparent shadow-medium group"
-            variant="outline"
-            onClick={() => navigate("/chatbot")}
-            style={{ animationDelay: '0.2s' }}
-          >
-            <MessageSquare className="h-7 w-7 group-hover:animate-pulse" />
-            <span className="font-semibold">AI Advisor</span>
-          </Button>
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-purple/10 to-primary/10 hover:from-purple hover:to-primary hover:text-white border-2 border-purple/20 hover:border-transparent shadow-medium group"
-            variant="outline"
-            onClick={() => navigate("/community-hub")}
-            style={{ animationDelay: '0.3s' }}
-          >
-            <Users className="h-7 w-7 group-hover:animate-float" />
-            <span className="font-semibold">Community</span>
-          </Button>
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-sky/10 to-accent/10 hover:from-sky hover:to-accent hover:text-white border-2 border-sky/20 hover:border-transparent shadow-medium group"
-            variant="outline"
-            onClick={() => navigate("/farm-map")}
-            style={{ animationDelay: '0.4s' }}
-          >
-            <MapPin className="h-7 w-7 group-hover:animate-bounce-subtle" />
-            <span className="font-semibold">Farm Map</span>
-          </Button>
-          <Button
-            className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-muted to-primary/10 hover:from-primary hover:to-accent hover:text-white border-2 border-muted-foreground/20 hover:border-transparent shadow-medium group"
-            variant="outline"
-            onClick={() => navigate("/manage-farms")}
-            style={{ animationDelay: '0.5s' }}
-          >
-            <Settings className="h-7 w-7 group-hover:animate-spin" />
-            <span className="font-semibold">Manage Farms</span>
-          </Button>
+        {/* Quick Actions - Core Features */}
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold mb-4 text-foreground">Core Features</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 animate-fade-in bg-gradient-to-br from-primary/10 to-accent/10 hover:from-primary hover:to-accent hover:text-white border-2 border-primary/20 hover:border-transparent shadow-medium hover:shadow-accent group"
+              variant="outline"
+              onClick={() => navigate("/soil-analyzer")}
+            >
+              <Sprout className="h-7 w-7 group-hover:animate-bounce-subtle" />
+              <span className="font-semibold">Soil Analyzer</span>
+            </Button>
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-destructive/10 to-orange/10 hover:from-destructive hover:to-orange hover:text-white border-2 border-destructive/20 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/climate-alerts")}
+              style={{ animationDelay: '0.1s' }}
+            >
+              <AlertTriangle className="h-7 w-7 group-hover:animate-wave" />
+              <span className="font-semibold">Climate Alerts</span>
+            </Button>
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-accent/10 to-primary/10 hover:from-accent hover:to-primary hover:text-white border-2 border-accent/20 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/chatbot")}
+              style={{ animationDelay: '0.2s' }}
+            >
+              <MessageSquare className="h-7 w-7 group-hover:animate-pulse" />
+              <span className="font-semibold">AI Advisor</span>
+            </Button>
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-purple/10 to-primary/10 hover:from-purple hover:to-primary hover:text-white border-2 border-purple/20 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/community-hub")}
+              style={{ animationDelay: '0.3s' }}
+            >
+              <Users className="h-7 w-7 group-hover:animate-float" />
+              <span className="font-semibold">Community</span>
+            </Button>
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-sky/10 to-accent/10 hover:from-sky hover:to-accent hover:text-white border-2 border-sky/20 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/farm-map")}
+              style={{ animationDelay: '0.4s' }}
+            >
+              <MapPin className="h-7 w-7 group-hover:animate-bounce-subtle" />
+              <span className="font-semibold">Farm Map</span>
+            </Button>
+            <Button
+              className="h-auto py-7 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-muted to-primary/10 hover:from-primary hover:to-accent hover:text-white border-2 border-muted-foreground/20 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/manage-farms")}
+              style={{ animationDelay: '0.5s' }}
+            >
+              <Settings className="h-7 w-7 group-hover:animate-spin" />
+              <span className="font-semibold">Manage Farms</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* New Smart Tools Section */}
+        <div className="mb-10">
+          <h3 className="text-xl font-semibold mb-4 text-foreground">🚀 Smart Farm Tools</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <Button
+              className="h-auto py-6 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-green-100 to-emerald-100 hover:from-green-500 hover:to-emerald-500 hover:text-white border-2 border-green-300 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/crop-yield")}
+            >
+              <TrendingUp className="h-6 w-6 group-hover:animate-bounce-subtle" />
+              <span className="font-semibold text-sm">Yield Predictor</span>
+            </Button>
+            <Button
+              className="h-auto py-6 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-blue-100 to-cyan-100 hover:from-blue-500 hover:to-cyan-500 hover:text-white border-2 border-blue-300 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/irrigation")}
+            >
+              <svg className="h-6 w-6 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+              </svg>
+              <span className="font-semibold text-sm">Irrigation</span>
+            </Button>
+            <Button
+              className="h-auto py-6 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-red-100 to-orange-100 hover:from-red-500 hover:to-orange-500 hover:text-white border-2 border-red-300 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/pest-disease")}
+            >
+              <svg className="h-6 w-6 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span className="font-semibold text-sm">Pest Alerts</span>
+            </Button>
+            <Button
+              className="h-auto py-6 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-emerald-100 to-teal-100 hover:from-emerald-500 hover:to-teal-500 hover:text-white border-2 border-emerald-300 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/market-prices")}
+            >
+              <svg className="h-6 w-6 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-semibold text-sm">Market Prices</span>
+            </Button>
+            <Button
+              className="h-auto py-6 flex-col gap-3 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-500 hover:to-pink-500 hover:text-white border-2 border-purple-300 hover:border-transparent shadow-medium group"
+              variant="outline"
+              onClick={() => navigate("/learning-hub")}
+            >
+              <svg className="h-6 w-6 group-hover:animate-bounce-subtle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              <span className="font-semibold text-sm">Learning Hub</span>
+            </Button>
+          </div>
         </div>
 
         {/* Key Metrics */}

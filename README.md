@@ -70,6 +70,56 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Share results via social media or clipboard
   - Download historical analysis data
 
+### 📊 Crop Yield Prediction & Planning
+- **AI-Powered Yield Forecasting** 🌾
+  - Machine learning-based yield predictions
+  - Confidence score for each prediction
+  - Historical prediction tracking
+- **Harvest Planning** 📅
+  - Planting and harvest date management
+  - Crop type optimization
+  - Season planning assistance
+
+### 💧 Smart Irrigation Management
+- **Automated Irrigation Scheduling** 💦
+  - Daily, weekly, and bi-weekly schedules
+  - Water amount optimization
+  - Next irrigation date tracking
+- **Schedule Management** ⏰
+  - Activate/pause irrigation schedules
+  - Real-time schedule status updates
+  - Multiple schedule support per farm
+
+### 🐛 Pest & Disease Detection
+- **Early Warning System** 🚨
+  - Pest, disease, and weed detection
+  - Severity classification (Low, Medium, High, Critical)
+  - Affected area tracking
+- **AI Treatment Recommendations** 💊
+  - Automated treatment suggestions
+  - Organic and sustainable solutions
+  - Resolution tracking and monitoring
+
+### 📈 Market Price Intelligence
+- **Real-time Price Tracking** 💰
+  - Current market prices for major crops
+  - Regional price variations
+  - Currency support
+- **Market Trend Analysis** 📊
+  - Rising, falling, and stable trend indicators
+  - Historical price charts
+  - Optimal selling recommendations
+
+### 🎓 Learning & Training Hub
+- **Educational Resources** 📚
+  - Video tutorials and guides
+  - Category-based learning (Soil Health, Pest Management, Irrigation, etc.)
+  - Difficulty levels (Beginner, Intermediate, Advanced)
+- **Resource Library** 📖
+  - Articles and tutorials
+  - Duration tracking
+  - View and like metrics
+
 ### ⛈️ Climate Prediction Engine
 - **Hyperlocal Weather Forecasts** 🌦️
   - Real-time climate alerts
@@ -117,6 +167,10 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Weekly moisture tracking
   - Farm health distribution
   - Key performance indicators
+- **Quick Access to All Features** 🚀
+  - Core features section (Soil Analyzer, Climate Alerts, AI Advisor, etc.)
+  - Smart farm tools section (Yield Predictor, Irrigation, Pest Alerts, Market Prices, Learning Hub)
+  - One-click navigation to all modules
 - **Real-time Notifications** 🔔
   - Live notification bell with badge counter
   - Climate alert notifications
