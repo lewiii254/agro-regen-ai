@@ -17,7 +17,7 @@ const Landing = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background with Gradient Overlay */}
         <div 
           className="absolute inset-0 z-0"
@@ -27,7 +27,7 @@ const Landing = () => {
             backgroundPosition: 'center',
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-accent/85 to-primary/90 animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-green-900/95 via-emerald-800/90 to-teal-900/95 animate-gradient-shift" style={{ backgroundSize: '200% 200%' }} />
         </div>
         
         {/* Floating Animated Particles/Icons */}

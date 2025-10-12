@@ -88,6 +88,47 @@ export type Database = {
         }
         Relationships: []
       }
+      crop_yield_predictions: {
+        Row: {
+          confidence_score: number
+          created_at: string
+          crop_type: string
+          expected_harvest_date: string
+          farm_id: string
+          id: string
+          planting_date: string
+          predicted_yield: number
+        }
+        Insert: {
+          confidence_score: number
+          created_at?: string
+          crop_type: string
+          expected_harvest_date: string
+          farm_id: string
+          id?: string
+          planting_date: string
+          predicted_yield: number
+        }
+        Update: {
+          confidence_score?: number
+          created_at?: string
+          crop_type?: string
+          expected_harvest_date?: string
+          farm_id?: string
+          id?: string
+          planting_date?: string
+          predicted_yield?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crop_yield_predictions_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       farms: {
         Row: {
           created_at: string | null
@@ -124,6 +165,95 @@ export type Database = {
           soil_type?: string | null
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      irrigation_schedules: {
+        Row: {
+          created_at: string
+          farm_id: string
+          frequency: string
+          id: string
+          next_irrigation_date: string
+          schedule_name: string
+          status: string
+          updated_at: string
+          water_amount_liters: number
+        }
+        Insert: {
+          created_at?: string
+          farm_id: string
+          frequency: string
+          id?: string
+          next_irrigation_date: string
+          schedule_name: string
+          status?: string
+          updated_at?: string
+          water_amount_liters: number
+        }
+        Update: {
+          created_at?: string
+          farm_id?: string
+          frequency?: string
+          id?: string
+          next_irrigation_date?: string
+          schedule_name?: string
+          status?: string
+          updated_at?: string
+          water_amount_liters?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "irrigation_schedules_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_resources: {
+        Row: {
+          category: string
+          content_type: string
+          content_url: string
+          created_at: string
+          description: string
+          difficulty_level: string
+          duration_minutes: number
+          id: string
+          likes: number
+          title: string
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          category: string
+          content_type: string
+          content_url: string
+          created_at?: string
+          description: string
+          difficulty_level: string
+          duration_minutes: number
+          id?: string
+          likes?: number
+          title: string
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          category?: string
+          content_type?: string
+          content_url?: string
+          created_at?: string
+          description?: string
+          difficulty_level?: string
+          duration_minutes?: number
+          id?: string
+          likes?: number
+          title?: string
+          updated_at?: string
+          views?: number
         }
         Relationships: []
       }

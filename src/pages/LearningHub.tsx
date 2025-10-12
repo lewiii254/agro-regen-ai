@@ -107,8 +107,17 @@ const LearningHub = () => {
     ];
 
     try {
-      for (const resource of sampleResources) {
-        await supabase.from("learning_resources").upsert(resource, { onConflict: "title" });
+      // Check if resources already exist
+      const { data: existingData } = await supabase
+        .from("learning_resources")
+        .select("id")
+        .limit(1);
+      
+      // Only seed if no resources exist
+      if (!existingData || existingData.length === 0) {
+        for (const resource of sampleResources) {
+          await supabase.from("learning_resources").insert(resource);
+        }
       }
     } catch (error) {
       console.error("Error seeding learning resources:", error);

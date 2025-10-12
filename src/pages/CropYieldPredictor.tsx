@@ -108,11 +108,6 @@ const CropYieldPredictor = () => {
           confidence_score: parseFloat(confidence.toFixed(2)),
           planting_date: formData.plantingDate,
           expected_harvest_date: formData.expectedHarvestDate,
-          factors: {
-            soil_quality: "Good",
-            weather_forecast: "Favorable",
-            irrigation: "Adequate"
-          }
         });
 
       if (error) throw error;
