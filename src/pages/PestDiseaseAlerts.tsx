@@ -67,7 +67,7 @@ const PestDiseaseAlerts = () => {
 
   const fetchAlerts = async (farmId: string) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("pest_disease_alerts")
         .select("*")
         .eq("farm_id", farmId)
@@ -98,7 +98,7 @@ const PestDiseaseAlerts = () => {
 
     setLoading(true);
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("pest_disease_alerts")
         .insert({
           farm_id: selectedFarmId,
@@ -108,6 +108,7 @@ const PestDiseaseAlerts = () => {
           affected_area: formData.affectedArea,
           symptoms: formData.symptoms,
           treatment_recommendations: getTreatmentRecommendation(formData.alertType, formData.name),
+          detected_date: new Date().toISOString(),
           is_resolved: false,
         });
 
@@ -126,7 +127,7 @@ const PestDiseaseAlerts = () => {
 
   const markAsResolved = async (alertId: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("pest_disease_alerts")
         .update({ is_resolved: true })
         .eq("id", alertId);

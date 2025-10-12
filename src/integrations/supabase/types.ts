@@ -257,6 +257,39 @@ export type Database = {
         }
         Relationships: []
       }
+      market_prices: {
+        Row: {
+          created_at: string
+          crop_type: string
+          currency: string
+          id: string
+          market_trend: string
+          price_per_kg: number
+          recorded_date: string
+          region: string
+        }
+        Insert: {
+          created_at?: string
+          crop_type: string
+          currency?: string
+          id?: string
+          market_trend: string
+          price_per_kg: number
+          recorded_date: string
+          region: string
+        }
+        Update: {
+          created_at?: string
+          crop_type?: string
+          currency?: string
+          id?: string
+          market_trend?: string
+          price_per_kg?: number
+          recorded_date?: string
+          region?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
@@ -289,6 +322,56 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      pest_disease_alerts: {
+        Row: {
+          affected_area: string
+          alert_type: string
+          created_at: string
+          detected_date: string
+          farm_id: string
+          id: string
+          is_resolved: boolean
+          pest_disease_name: string
+          severity: string
+          symptoms: string
+          treatment_recommendations: string
+        }
+        Insert: {
+          affected_area: string
+          alert_type: string
+          created_at?: string
+          detected_date: string
+          farm_id: string
+          id?: string
+          is_resolved?: boolean
+          pest_disease_name: string
+          severity: string
+          symptoms: string
+          treatment_recommendations: string
+        }
+        Update: {
+          affected_area?: string
+          alert_type?: string
+          created_at?: string
+          detected_date?: string
+          farm_id?: string
+          id?: string
+          is_resolved?: boolean
+          pest_disease_name?: string
+          severity?: string
+          symptoms?: string
+          treatment_recommendations?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pest_disease_alerts_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       post_comments: {
         Row: {

@@ -45,7 +45,7 @@ const MarketPriceIntelligence = () => {
 
     try {
       for (const data of sampleData) {
-        await supabase.from("market_prices").upsert(data, { onConflict: "crop_type,region,recorded_date" });
+        await (supabase as any).from("market_prices").upsert(data);
       }
     } catch (error) {
       console.error("Error seeding market data:", error);
@@ -54,7 +54,7 @@ const MarketPriceIntelligence = () => {
 
   const fetchMarketPrices = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("market_prices")
         .select("*")
         .order("recorded_date", { ascending: false })
@@ -70,7 +70,7 @@ const MarketPriceIntelligence = () => {
         currency: string;
         market_trend: string;
         recorded_date: string;
-      }>>, curr) => {
+      }>>, curr: any) => {
         if (!acc[curr.crop_type]) {
           acc[curr.crop_type] = [];
         }

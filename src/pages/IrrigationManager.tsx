@@ -61,7 +61,7 @@ const IrrigationManager = () => {
 
   const fetchSchedules = async (farmId: string) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("irrigation_schedules")
         .select("*")
         .eq("farm_id", farmId)
@@ -101,7 +101,7 @@ const IrrigationManager = () => {
 
     setLoading(true);
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("irrigation_schedules")
         .insert({
           farm_id: selectedFarmId,
@@ -128,7 +128,7 @@ const IrrigationManager = () => {
   const toggleScheduleStatus = async (scheduleId: string, currentStatus: string) => {
     try {
       const newStatus = currentStatus === "active" ? "paused" : "active";
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("irrigation_schedules")
         .update({ status: newStatus })
         .eq("id", scheduleId);

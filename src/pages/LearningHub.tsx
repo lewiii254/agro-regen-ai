@@ -108,7 +108,7 @@ const LearningHub = () => {
 
     try {
       // Check if resources already exist
-      const { data: existingData } = await supabase
+      const { data: existingData } = await (supabase as any)
         .from("learning_resources")
         .select("id")
         .limit(1);
@@ -116,7 +116,7 @@ const LearningHub = () => {
       // Only seed if no resources exist
       if (!existingData || existingData.length === 0) {
         for (const resource of sampleResources) {
-          await supabase.from("learning_resources").insert(resource);
+          await (supabase as any).from("learning_resources").insert(resource);
         }
       }
     } catch (error) {
@@ -126,7 +126,7 @@ const LearningHub = () => {
 
   const fetchResources = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("learning_resources")
         .select("*")
         .order("views", { ascending: false });

@@ -61,7 +61,7 @@ const CropYieldPredictor = () => {
 
   const fetchPredictions = async (farmId: string) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("crop_yield_predictions")
         .select("*")
         .eq("farm_id", farmId)
@@ -99,7 +99,7 @@ const CropYieldPredictor = () => {
       const confidence = 0.75 + Math.random() * 0.2;
       const predictedYield = baseYield * (0.9 + Math.random() * 0.3);
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("crop_yield_predictions")
         .insert({
           farm_id: selectedFarmId,
