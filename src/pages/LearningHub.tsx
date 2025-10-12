@@ -47,7 +47,7 @@ const LearningHub = () => {
         description: "Learn the basics of regenerative farming and how it can improve soil health and increase yields.",
         category: "soil_health",
         content_type: "video",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=fSEtiixgRJI",
         difficulty_level: "beginner",
         duration_minutes: 15,
         views: 1250,
@@ -58,7 +58,7 @@ const LearningHub = () => {
         description: "Comprehensive guide to managing pests using sustainable and eco-friendly methods.",
         category: "pest_management",
         content_type: "guide",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=yJLjzU8StxE",
         difficulty_level: "intermediate",
         duration_minutes: 30,
         views: 856,
@@ -69,7 +69,7 @@ const LearningHub = () => {
         description: "Step-by-step tutorial on setting up efficient irrigation systems to conserve water.",
         category: "irrigation",
         content_type: "tutorial",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=Gj5VDxJJFjQ",
         difficulty_level: "intermediate",
         duration_minutes: 25,
         views: 943,
@@ -80,7 +80,7 @@ const LearningHub = () => {
         description: "Master the art of crop rotation to maintain soil fertility and reduce pest pressure.",
         category: "crop_rotation",
         content_type: "article",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=sH4072T0w0E",
         difficulty_level: "beginner",
         duration_minutes: 20,
         views: 1102,
@@ -91,7 +91,7 @@ const LearningHub = () => {
         description: "Learn how to adapt your farming practices to changing climate conditions.",
         category: "climate_adaptation",
         content_type: "video",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=OpEB6hCpIGM",
         difficulty_level: "advanced",
         duration_minutes: 40,
         views: 678,
@@ -102,12 +102,166 @@ const LearningHub = () => {
         description: "Complete guide to understanding soil test results and taking action.",
         category: "soil_health",
         content_type: "guide",
-        content_url: "#",
+        content_url: "https://www.youtube.com/watch?v=8VAdaAQnJ_4",
         difficulty_level: "beginner",
         duration_minutes: 18,
         views: 1523,
         likes: 112
       },
+      {
+        title: "Composting 101: Turn Waste into Black Gold",
+        description: "Learn the science and practice of composting to create nutrient-rich soil amendments.",
+        category: "composting",
+        content_type: "video",
+        content_url: "https://www.youtube.com/watch?v=jOvF4tXZaKw",
+        difficulty_level: "beginner",
+        duration_minutes: 22,
+        views: 1867,
+        likes: 145
+      },
+      {
+        title: "Rainwater Harvesting Techniques",
+        description: "Practical methods for collecting and storing rainwater for agricultural use.",
+        category: "water_conservation",
+        content_type: "tutorial",
+        content_url: "https://www.youtube.com/watch?v=1KWtXqC_YkY",
+        difficulty_level: "intermediate",
+        duration_minutes: 28,
+        views: 1234,
+        likes: 98
+      },
+      {
+        title: "Organic Fertilizer Production",
+        description: "Step-by-step guide to producing your own organic fertilizers on the farm.",
+        category: "soil_health",
+        content_type: "guide",
+        content_url: "https://www.youtube.com/watch?v=2TdHN-M_GdQ",
+        difficulty_level: "intermediate",
+        duration_minutes: 35,
+        views: 982,
+        likes: 76
+      },
+      {
+        title: "Marketing Your Farm Products Online",
+        description: "Digital marketing strategies for farmers to reach more customers and increase sales.",
+        category: "farm_marketing",
+        content_type: "article",
+        content_url: "https://www.youtube.com/watch?v=kCGlEYGzpaw",
+        difficulty_level: "beginner",
+        duration_minutes: 30,
+        views: 1456,
+        likes: 118
+      },
+      {
+        title: "Cover Cropping for Soil Health",
+        description: "Discover how cover crops can improve soil structure, prevent erosion, and add nutrients.",
+        category: "soil_health",
+        content_type: "video",
+        content_url: "https://www.youtube.com/watch?v=yJWI7oFPKck",
+        difficulty_level: "intermediate",
+        duration_minutes: 26,
+        views: 1098,
+        likes: 87
+      },
+      {
+        title: "Natural Pest Control Solutions",
+        description: "Use beneficial insects and plants to control pests without chemicals.",
+        category: "pest_management",
+        content_type: "tutorial",
+        content_url: "https://www.youtube.com/watch?v=jyN8_n2vdvU",
+        difficulty_level: "beginner",
+        duration_minutes: 20,
+        views: 1345,
+        likes: 102
+      },
+      {
+        title: "Drip Irrigation Installation Guide",
+        description: "Complete tutorial on installing and maintaining drip irrigation systems.",
+        category: "irrigation",
+        content_type: "video",
+        content_url: "https://www.youtube.com/watch?v=sF8DUjWFWgw",
+        difficulty_level: "advanced",
+        duration_minutes: 45,
+        views: 876,
+        likes: 69
+      },
+      {
+        title: "Vermicomposting: Worm Farming Basics",
+        description: "Start your own worm farm to produce high-quality vermicompost for your crops.",
+        category: "composting",
+        content_type: "guide",
+        content_url: "https://www.youtube.com/watch?v=L6FRnMp0Jxg",
+        difficulty_level: "beginner",
+        duration_minutes: 24,
+        views: 1567,
+        likes: 125
+      },
+      {
+        title: "Building Soil Carbon Through Regenerative Practices",
+        description: "Advanced techniques for increasing soil organic matter and carbon sequestration.",
+        category: "soil_health",
+        content_type: "video",
+        content_url: "https://www.youtube.com/watch?v=QfTZ0rnowcc",
+        difficulty_level: "advanced",
+        duration_minutes: 50,
+        views: 723,
+        likes: 61
+      },
+      {
+        title: "Farm Business Planning and Record Keeping",
+        description: "Essential business skills for running a profitable and sustainable farm operation.",
+        category: "farm_marketing",
+        content_type: "article",
+        content_url: "https://www.youtube.com/watch?v=LmhsAv1cL74",
+        difficulty_level: "intermediate",
+        duration_minutes: 38,
+        views: 934,
+        likes: 71
+      },
+      {
+        title: "Water-Wise Crop Selection",
+        description: "Choose the right crops for water-limited conditions and maximize efficiency.",
+        category: "water_conservation",
+        content_type: "guide",
+        content_url: "https://www.youtube.com/watch?v=dZyVL5x2RA8",
+        difficulty_level: "intermediate",
+        duration_minutes: 27,
+        views: 1123,
+        likes: 89
+      },
+      {
+        title: "Season Extension Techniques",
+        description: "Extend your growing season using low-cost structures and smart planning.",
+        category: "crop_rotation",
+        content_type: "tutorial",
+        content_url: "https://www.youtube.com/watch?v=E0BYkzO_WAI",
+        difficulty_level: "intermediate",
+        duration_minutes: 32,
+        views: 1045,
+        likes: 83
+      },
+      {
+        title: "Climate-Resilient Farming Practices",
+        description: "Adapt your farm to climate variability with proven resilience strategies.",
+        category: "climate_adaptation",
+        content_type: "video",
+        content_url: "https://www.youtube.com/watch?v=H-0OLKvfLSo",
+        difficulty_level: "advanced",
+        duration_minutes: 42,
+        views: 789,
+        likes: 64
+      },
+      {
+        title: "Direct Marketing and Value Addition",
+        description: "Add value to your products and sell directly to consumers for better profits.",
+        category: "farm_marketing",
+        content_type: "article",
+        content_url: "https://www.youtube.com/watch?v=Xqja4GOy1oU",
+        difficulty_level: "beginner",
+        duration_minutes: 29,
+        views: 1289,
+        likes: 97
+      }
     ];
 
     try {
@@ -302,16 +456,19 @@ const LearningHub = () => {
         </div>
 
         <Tabs defaultValue="all" className="mb-8">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-9 gap-1">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="soil_health">Soil Health</TabsTrigger>
             <TabsTrigger value="pest_management">Pest Mgmt</TabsTrigger>
             <TabsTrigger value="irrigation">Irrigation</TabsTrigger>
             <TabsTrigger value="crop_rotation">Crop Rotation</TabsTrigger>
             <TabsTrigger value="climate_adaptation">Climate</TabsTrigger>
+            <TabsTrigger value="composting">Composting</TabsTrigger>
+            <TabsTrigger value="water_conservation">Water</TabsTrigger>
+            <TabsTrigger value="farm_marketing">Marketing</TabsTrigger>
           </TabsList>
 
-          {["all", "soil_health", "pest_management", "irrigation", "crop_rotation", "climate_adaptation"].map((category) => (
+          {["all", "soil_health", "pest_management", "irrigation", "crop_rotation", "climate_adaptation", "composting", "water_conservation", "farm_marketing"].map((category) => (
             <TabsContent key={category} value={category}>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filterAndSortResources(category).map((resource) => (
@@ -350,10 +507,19 @@ const LearningHub = () => {
                         </div>
 
                         <div className="flex gap-2">
-                          <Button className="flex-1 group-hover:scale-105 transition-transform" variant="outline">
+                          <Button 
+                            className="flex-1 group-hover:scale-105 transition-transform" 
+                            variant="outline"
+                            onClick={() => window.open(resource.content_url, '_blank')}
+                          >
                             {resource.content_type === "video" ? "Watch Now" : "Read More"}
                           </Button>
-                          <Button variant="ghost" size="icon" className="group-hover:scale-105 transition-transform">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="group-hover:scale-105 transition-transform"
+                            onClick={() => window.open(resource.content_url, '_blank')}
+                          >
                             <Download className="h-4 w-4" />
                           </Button>
                         </div>
