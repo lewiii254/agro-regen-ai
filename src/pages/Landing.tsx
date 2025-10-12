@@ -12,6 +12,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import heroImage from "@/assets/hero-farmland.jpg";
+import Footer from "@/components/Footer";
 
 const Landing = () => {
   return (
@@ -324,18 +325,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-primary to-primary-glow text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6 animate-fade-in">
-            <Sprout className="h-10 w-10 animate-float" />
-            <span className="text-3xl font-bold">AgroReGen</span>
-          </div>
-          <p className="text-white/90 text-lg">
-            Climate-Smart Agriculture for a Sustainable Future
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { NotificationBell } from "@/components/NotificationBell";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -414,6 +415,7 @@ const Dashboard = () => {
           </div>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };
