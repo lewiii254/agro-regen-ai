@@ -17,6 +17,7 @@ import IrrigationManager from "./pages/IrrigationManager";
 import PestDiseaseAlerts from "./pages/PestDiseaseAlerts";
 import MarketPriceIntelligence from "./pages/MarketPriceIntelligence";
 import LearningHub from "./pages/LearningHub";
+import Marketplace from "./pages/Marketplace";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/pest-disease" element={<PestDiseaseAlerts />} />
           <Route path="/market-prices" element={<MarketPriceIntelligence />} />
           <Route path="/learning-hub" element={<LearningHub />} />
+          <Route path="/marketplace" element={<Marketplace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
