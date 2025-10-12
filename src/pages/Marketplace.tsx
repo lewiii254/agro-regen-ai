@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, MapPin, DollarSign, Users, TreePine, Target, CheckCircle2, TrendingUp } from "lucide-react";
+import { ArrowLeft, MapPin, DollarSign, Users, TreePine, Target, CheckCircle2, TrendingUp, Search, Filter, Mail, Phone, Calendar, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 import Footer from "@/components/Footer";
 
 interface Project {
@@ -21,12 +26,23 @@ interface Project {
   impact_score: number;
   landowner: string;
   investors_count: number;
+  contact_email?: string;
+  contact_phone?: string;
+  start_date?: string;
+  estimated_completion?: string;
+  milestones?: string[];
+  min_investment?: number;
 }
 
 const Marketplace = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"funding" | "impact" | "area">("funding");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [investmentAmount, setInvestmentAmount] = useState("");
 
   useEffect(() => {
     const initAuth = async () => {
@@ -54,7 +70,18 @@ const Marketplace = () => {
         project_type: "reforestation",
         impact_score: 92,
         landowner: "Kibwezi Community Land Trust",
-        investors_count: 12
+        investors_count: 12,
+        contact_email: "info@kibweziforest.org",
+        contact_phone: "+254-700-123456",
+        start_date: "2024-03-15",
+        estimated_completion: "2027-03-15",
+        milestones: [
+          "Site preparation and soil testing - Completed",
+          "Native tree seedling nursery - In Progress",
+          "Initial planting phase (50 ha) - Upcoming",
+          "Water retention systems - Planned"
+        ],
+        min_investment: 5000
       },
       {
         id: "2",
@@ -68,7 +95,18 @@ const Marketplace = () => {
         project_type: "soil_restoration",
         impact_score: 88,
         landowner: "Maasai Land Cooperative",
-        investors_count: 18
+        investors_count: 18,
+        contact_email: "contact@naroksoil.org",
+        contact_phone: "+254-722-234567",
+        start_date: "2023-11-01",
+        estimated_completion: "2025-11-01",
+        milestones: [
+          "Baseline soil testing - Completed",
+          "Rotational grazing setup - Completed",
+          "Cover crop planting - In Progress",
+          "Soil carbon monitoring - Ongoing"
+        ],
+        min_investment: 3000
       },
       {
         id: "3",
@@ -82,7 +120,18 @@ const Marketplace = () => {
         project_type: "water_management",
         impact_score: 85,
         landowner: "Kericho Farmers Association",
-        investors_count: 7
+        investors_count: 7,
+        contact_email: "watershed@kericho.org",
+        contact_phone: "+254-733-345678",
+        start_date: "2024-06-01",
+        estimated_completion: "2026-06-01",
+        milestones: [
+          "Watershed mapping - Completed",
+          "Contour bunding design - In Progress",
+          "Water harvesting structures - Planned",
+          "Riparian restoration - Planned"
+        ],
+        min_investment: 2500
       },
       {
         id: "4",
@@ -96,7 +145,18 @@ const Marketplace = () => {
         project_type: "biodiversity",
         impact_score: 95,
         landowner: "Laikipia Wildlife Conservancy",
-        investors_count: 25
+        investors_count: 25,
+        contact_email: "info@laikipiacorridor.org",
+        contact_phone: "+254-744-456789",
+        start_date: "2022-01-15",
+        estimated_completion: "2024-01-15",
+        milestones: [
+          "Corridor route planning - Completed",
+          "Native vegetation restoration - Completed",
+          "Wildlife monitoring systems - Completed",
+          "Community engagement - Completed"
+        ],
+        min_investment: 10000
       },
       {
         id: "5",
@@ -110,7 +170,18 @@ const Marketplace = () => {
         project_type: "reforestation",
         impact_score: 90,
         landowner: "Meru Smallholder Farmers Group",
-        investors_count: 15
+        investors_count: 15,
+        contact_email: "agroforest@meru.org",
+        contact_phone: "+254-755-567890",
+        start_date: "2024-05-01",
+        estimated_completion: "2027-05-01",
+        milestones: [
+          "Farmer training programs - Completed",
+          "Tree species selection - Completed",
+          "Demonstration plots - In Progress",
+          "Full-scale implementation - Planned"
+        ],
+        min_investment: 4000
       },
       {
         id: "6",
@@ -124,7 +195,18 @@ const Marketplace = () => {
         project_type: "soil_restoration",
         impact_score: 87,
         landowner: "Kajiado Pastoralist Network",
-        investors_count: 20
+        investors_count: 20,
+        contact_email: "rangeland@kajiado.org",
+        contact_phone: "+254-766-678901",
+        start_date: "2023-08-01",
+        estimated_completion: "2025-08-01",
+        milestones: [
+          "Grazing plan development - Completed",
+          "Fence installation - Completed",
+          "Grass reseeding - In Progress",
+          "Carbon measurement - Ongoing"
+        ],
+        min_investment: 3500
       }
     ];
     
@@ -167,6 +249,58 @@ const Marketplace = () => {
 
   const getFundingPercentage = (project: Project) => {
     return Math.round((project.funding_raised / project.funding_goal) * 100);
+  };
+
+  const filterAndSortProjects = (status: string) => {
+    let filtered = filterByStatus(status);
+    
+    // Apply type filter
+    if (filterType !== "all") {
+      filtered = filtered.filter(p => p.project_type === filterType);
+    }
+    
+    // Apply search filter
+    if (searchQuery) {
+      filtered = filtered.filter(p => 
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.location.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    // Apply sorting
+    switch (sortBy) {
+      case "funding":
+        return filtered.sort((a, b) => getFundingPercentage(b) - getFundingPercentage(a));
+      case "impact":
+        return filtered.sort((a, b) => b.impact_score - a.impact_score);
+      case "area":
+        return filtered.sort((a, b) => b.area_hectares - a.area_hectares);
+      default:
+        return filtered;
+    }
+  };
+
+  const handleInvestment = () => {
+    if (!selectedProject || !investmentAmount) {
+      toast.error("Please enter investment amount");
+      return;
+    }
+
+    const amount = parseFloat(investmentAmount);
+    if (amount < (selectedProject.min_investment || 1000)) {
+      toast.error(`Minimum investment is $${(selectedProject.min_investment || 1000).toLocaleString()}`);
+      return;
+    }
+
+    // Simulate investment
+    toast.success(`Investment of $${amount.toLocaleString()} submitted successfully!`);
+    setInvestmentAmount("");
+    setSelectedProject(null);
+  };
+
+  const handleContactLandowner = (project: Project) => {
+    toast.success(`Contact request sent to ${project.landowner}`);
   };
 
   return (
@@ -248,6 +382,43 @@ const Marketplace = () => {
           </Card>
         </div>
 
+        {/* Search and Filter Bar */}
+        <div className="mb-6 grid md:grid-cols-4 gap-4">
+          <div className="md:col-span-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search projects by name, location, or description..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+          <Select value={filterType} onValueChange={setFilterType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Filter by type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="reforestation">Reforestation</SelectItem>
+              <SelectItem value="soil_restoration">Soil Restoration</SelectItem>
+              <SelectItem value="water_management">Water Management</SelectItem>
+              <SelectItem value="biodiversity">Biodiversity</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={sortBy} onValueChange={(value: "funding" | "impact" | "area") => setSortBy(value)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="funding">Funding Progress</SelectItem>
+              <SelectItem value="impact">Impact Score</SelectItem>
+              <SelectItem value="area">Area Size</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         <Tabs defaultValue="all" className="mb-8">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="all">All Projects</TabsTrigger>
@@ -259,7 +430,7 @@ const Marketplace = () => {
           {["all", "seeking_funding", "in_progress", "completed"].map((status) => (
             <TabsContent key={status} value={status}>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filterByStatus(status).map((project) => (
+                {filterAndSortProjects(status).map((project) => (
                   <Card key={project.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <CardHeader className="relative">
@@ -321,21 +492,139 @@ const Marketplace = () => {
                           <Users className="h-4 w-4 text-muted-foreground" />
                           <span className="text-sm text-muted-foreground">{project.investors_count} investors</span>
                         </div>
+                        {project.min_investment && (
+                          <span className="text-xs text-muted-foreground">Min: ${project.min_investment.toLocaleString()}</span>
+                        )}
                       </div>
 
-                      <Button className="w-full group-hover:scale-105 transition-transform" variant={project.status === "completed" ? "outline" : "default"}>
-                        {project.status === "completed" ? (
-                          <>
-                            <CheckCircle2 className="mr-2 h-4 w-4" />
-                            View Results
-                          </>
-                        ) : (
-                          <>
-                            <DollarSign className="mr-2 h-4 w-4" />
-                            Invest Now
-                          </>
-                        )}
-                      </Button>
+                      <div className="flex gap-2">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button 
+                              className="flex-1 group-hover:scale-105 transition-transform" 
+                              variant={project.status === "completed" ? "outline" : "default"}
+                              onClick={() => setSelectedProject(project)}
+                            >
+                              {project.status === "completed" ? (
+                                <>
+                                  <Info className="mr-2 h-4 w-4" />
+                                  Details
+                                </>
+                              ) : (
+                                <>
+                                  <DollarSign className="mr-2 h-4 w-4" />
+                                  Invest
+                                </>
+                              )}
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                            <DialogHeader>
+                              <DialogTitle>{selectedProject?.title}</DialogTitle>
+                              <DialogDescription>{selectedProject?.description}</DialogDescription>
+                            </DialogHeader>
+                            {selectedProject && (
+                              <div className="space-y-4 mt-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Location</p>
+                                    <p className="text-sm">{selectedProject.location}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Area</p>
+                                    <p className="text-sm">{selectedProject.area_hectares} hectares</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Impact Score</p>
+                                    <p className="text-sm font-semibold text-emerald-600">{selectedProject.impact_score}/100</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Status</p>
+                                    <Badge className={getStatusColor(selectedProject.status)}>
+                                      {selectedProject.status.replace("_", " ")}
+                                    </Badge>
+                                  </div>
+                                </div>
+
+                                {selectedProject.milestones && (
+                                  <div>
+                                    <p className="text-sm font-medium text-muted-foreground mb-2">Project Milestones</p>
+                                    <ul className="space-y-2">
+                                      {selectedProject.milestones.map((milestone, idx) => (
+                                        <li key={idx} className="text-sm flex items-start gap-2">
+                                          <CheckCircle2 className="h-4 w-4 text-emerald-600 mt-0.5" />
+                                          {milestone}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+
+                                <div className="grid grid-cols-2 gap-4">
+                                  {selectedProject.start_date && (
+                                    <div>
+                                      <p className="text-sm font-medium text-muted-foreground">Start Date</p>
+                                      <p className="text-sm">{new Date(selectedProject.start_date).toLocaleDateString()}</p>
+                                    </div>
+                                  )}
+                                  {selectedProject.estimated_completion && (
+                                    <div>
+                                      <p className="text-sm font-medium text-muted-foreground">Est. Completion</p>
+                                      <p className="text-sm">{new Date(selectedProject.estimated_completion).toLocaleDateString()}</p>
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div>
+                                  <p className="text-sm font-medium text-muted-foreground mb-2">Contact Information</p>
+                                  <div className="space-y-2">
+                                    <div className="flex items-center gap-2">
+                                      <Mail className="h-4 w-4 text-muted-foreground" />
+                                      <span className="text-sm">{selectedProject.contact_email || "Not available"}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Phone className="h-4 w-4 text-muted-foreground" />
+                                      <span className="text-sm">{selectedProject.contact_phone || "Not available"}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {selectedProject.status !== "completed" && (
+                                  <div className="border-t pt-4">
+                                    <Label htmlFor="investment-amount">Investment Amount (USD)</Label>
+                                    <Input
+                                      id="investment-amount"
+                                      type="number"
+                                      placeholder={`Min: $${(selectedProject.min_investment || 1000).toLocaleString()}`}
+                                      value={investmentAmount}
+                                      onChange={(e) => setInvestmentAmount(e.target.value)}
+                                      className="mt-2"
+                                    />
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                      Minimum investment: ${(selectedProject.min_investment || 1000).toLocaleString()}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                            <DialogFooter className="gap-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => selectedProject && handleContactLandowner(selectedProject)}
+                              >
+                                <Mail className="mr-2 h-4 w-4" />
+                                Contact Landowner
+                              </Button>
+                              {selectedProject?.status !== "completed" && (
+                                <Button onClick={handleInvestment}>
+                                  <DollarSign className="mr-2 h-4 w-4" />
+                                  Invest Now
+                                </Button>
+                              )}
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}

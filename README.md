@@ -48,12 +48,51 @@
 - 💬 Get personalized farming advice from AI
 - 🤝 Connect with a community of regenerative farmers
 - 📍 Visualize farm locations and health metrics
+- 💰 Invest in verified land restoration projects
+- 🎓 Access 20+ educational video resources
+- 📊 Track crop yields and plan harvests
+- 💧 Manage smart irrigation schedules
+- 🐛 Detect pests and diseases early
+- 📈 Monitor real-time market prices
 
 Our mission is to make sustainable farming accessible, profitable, and scalable for farmers worldwide! 🌾✨
 
 ---
 
 ## ✨ Features
+
+### 🌍 Restoration Marketplace
+- **Project Investment Platform** 💰
+  - Connect landowners with investors
+  - 6+ verified restoration projects
+  - Real-time funding tracking
+  - Investment opportunities in reforestation, soil restoration, water management, and biodiversity
+- **Advanced Search & Filtering** 🔍
+  - Search by project name, location, or description
+  - Filter by project type (reforestation, soil restoration, water management, biodiversity)
+  - Sort by funding progress, impact score, or area size
+- **Project Details** 📊
+  - Detailed project information and milestones
+  - Timeline with start and completion dates
+  - Contact information for landowners
+  - Minimum investment requirements
+  - Impact scores (0-100)
+  - Area coverage in hectares
+- **Investment Features** 💵
+  - Invest in projects directly through modal dialogs
+  - View funding progress and goals
+  - Track number of investors
+  - Minimum investment thresholds ($2,500 - $10,000)
+  - Contact landowners directly
+- **Project Status Tracking** 📈
+  - Seeking Funding - Active investment opportunities
+  - In Progress - Ongoing restoration work
+  - Completed - Successful restoration projects
+- **Platform Statistics** 📊
+  - Total active projects
+  - Hectares being restored
+  - Total investment raised
+  - Number of investors
 
 ### 🔬 AI Soil Analyzer
 - **Real-time Soil Health Monitoring** 📊
@@ -110,15 +149,57 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Historical price charts
   - Optimal selling recommendations
 
+### 🌍 Restoration Marketplace
+- **Project Investment Platform** 💰
+  - Connect landowners with investors
+  - 6+ verified restoration projects
+  - Real-time funding tracking
+  - Investment opportunities in reforestation, soil restoration, water management, and biodiversity
+- **Advanced Search & Filtering** 🔍
+  - Search by project name, location, or description
+  - Filter by project type (reforestation, soil restoration, water management, biodiversity)
+  - Sort by funding progress, impact score, or area size
+- **Project Details** 📊
+  - Detailed project information and milestones
+  - Timeline with start and completion dates
+  - Contact information for landowners
+  - Minimum investment requirements
+  - Impact scores (0-100)
+  - Area coverage in hectares
+- **Investment Features** 💵
+  - Invest in projects directly through modal dialogs
+  - View funding progress and goals
+  - Track number of investors
+  - Minimum investment thresholds ($2,500 - $10,000)
+  - Contact landowners directly
+- **Project Status Tracking** 📈
+  - Seeking Funding - Active investment opportunities
+  - In Progress - Ongoing restoration work
+  - Completed - Successful restoration projects
+- **Platform Statistics** 📊
+  - Total active projects
+  - Hectares being restored
+  - Total investment raised
+  - Number of investors
+
 ### 🎓 Learning & Training Hub
 - **Educational Resources** 📚
-  - Video tutorials and guides
+  - 20+ comprehensive learning resources
+  - Video tutorials with YouTube integration
   - Category-based learning (Soil Health, Pest Management, Irrigation, etc.)
   - Difficulty levels (Beginner, Intermediate, Advanced)
+  - New categories: Composting, Water Conservation, Farm Marketing
 - **Resource Library** 📖
   - Articles and tutorials
+  - Embedded video content
   - Duration tracking
   - View and like metrics
+  - Direct access to video content
+- **Interactive Features** 🎯
+  - Search functionality
+  - Sort by popularity, likes, or duration
+  - Filter by category
+  - Clickable resources with external links
 
 ### ⛈️ Climate Prediction Engine
 - **Hyperlocal Weather Forecasts** 🌦️
@@ -168,14 +249,16 @@ Our mission is to make sustainable farming accessible, profitable, and scalable 
   - Farm health distribution
   - Key performance indicators
 - **Quick Access to All Features** 🚀
-  - Core features section (Soil Analyzer, Climate Alerts, AI Advisor, etc.)
-  - Smart farm tools section (Yield Predictor, Irrigation, Pest Alerts, Market Prices, Learning Hub)
+  - Core features section (Soil Analyzer, Climate Alerts, AI Advisor, Community Hub, Farm Map)
+  - Smart farm tools section (Yield Predictor, Irrigation Manager, Pest Alerts, Market Intelligence, Learning Hub)
+  - Restoration marketplace access
   - One-click navigation to all modules
 - **Real-time Notifications** 🔔
   - Live notification bell with badge counter
   - Climate alert notifications
   - Community engagement updates
   - Farm activity monitoring
+  - Investment opportunities
   - Mark notifications as read/unread
 
 ### ✨ Modern UI/UX Design
@@ -279,7 +362,65 @@ Navigate to `http://localhost:5173`
 
 ---
 
-## 💻 Usage
+### 💻 Usage
+
+### 🌍 Using the Restoration Marketplace
+
+1. Navigate to **Marketplace** 🌍
+2. Browse restoration projects:
+   - View 6+ verified land restoration projects
+   - See funding progress and impact scores
+   - Check project locations and area coverage
+3. **Search and Filter Projects**:
+   - Use search bar to find specific projects
+   - Filter by project type (reforestation, soil restoration, etc.)
+   - Sort by funding progress, impact score, or area
+4. **Invest in Projects**:
+   - Click "Invest" on any active project
+   - View detailed project information including:
+     - Project milestones and timeline
+     - Landowner contact information
+     - Minimum investment requirements
+   - Enter investment amount (check minimum threshold)
+   - Submit investment
+5. **Contact Landowners**:
+   - View email and phone contact details
+   - Send direct contact requests
+   - Discuss project specifics before investing
+6. **Track Progress**:
+   - Monitor funding progress bars
+   - See number of investors
+   - View project status (seeking funding, in progress, completed)
+
+### 🎓 Using the Learning Hub
+
+1. Go to **Learning Hub** page 📚
+2. Explore 20+ educational resources:
+   - Video tutorials on regenerative agriculture
+   - Guides on pest management and irrigation
+   - Articles on composting and water conservation
+   - Marketing strategies for farm products
+3. **Search and Filter**:
+   - Use search bar to find specific topics
+   - Sort by popular, most liked, or duration
+   - Filter by 9 categories:
+     - Soil Health
+     - Pest Management
+     - Irrigation
+     - Crop Rotation
+     - Climate Adaptation
+     - Composting
+     - Water Conservation
+     - Farm Marketing
+4. **Access Learning Materials**:
+   - Click "Watch Now" to view video tutorials
+   - Click "Read More" for articles and guides
+   - Download resources for offline learning
+   - Track views and likes for each resource
+5. **Track Your Learning**:
+   - See total resources available
+   - View total views across platform
+   - Find beginner-friendly content
 
 ### 🔐 Authentication
 
@@ -705,6 +846,56 @@ Real-time notification system for user alerts
 - 100 requests per hour per user
 - Max conversation history: 20 messages
 
+### 🎥 Learning Hub Resources
+
+The Learning Hub provides 20+ comprehensive educational resources across multiple categories:
+
+#### 📚 Available Learning Topics
+
+**Soil Health & Composting:**
+- Introduction to Regenerative Agriculture
+- Soil Testing and Analysis
+- Organic Fertilizer Production
+- Cover Cropping for Soil Health
+- Building Soil Carbon Through Regenerative Practices
+- Composting 101: Turn Waste into Black Gold
+- Vermicomposting: Worm Farming Basics
+
+**Pest Management:**
+- Integrated Pest Management (IPM) Techniques
+- Natural Pest Control Solutions
+
+**Irrigation & Water Conservation:**
+- Smart Irrigation Systems for Small Farms
+- Drip Irrigation Installation Guide
+- Rainwater Harvesting Techniques
+- Water-Wise Crop Selection
+
+**Crop Management:**
+- Crop Rotation Planning Made Easy
+- Season Extension Techniques
+
+**Climate Adaptation:**
+- Climate Adaptation Strategies
+- Climate-Resilient Farming Practices
+
+**Farm Business & Marketing:**
+- Marketing Your Farm Products Online
+- Farm Business Planning and Record Keeping
+- Direct Marketing and Value Addition
+
+#### 🎬 Video Content
+- All resources link to high-quality YouTube tutorials
+- Topics range from beginner to advanced levels
+- Duration: 15-50 minutes per resource
+- Covers practical, hands-on techniques
+
+#### 📊 Resource Features
+- Difficulty indicators (Beginner, Intermediate, Advanced)
+- View counts and engagement metrics
+- Direct links to video content
+- Downloadable supplementary materials
+
 ---
 
 ## 🗺️ Roadmap
@@ -724,7 +915,15 @@ Real-time notification system for user alerts
 - [x] Smooth animations and transitions
 - [x] Interactive hover effects
 
-### 🚀 Phase 2: Enhanced Features 🔄 (In Progress)
+### 🚀 Phase 2: Enhanced Features ✅ (Completed)
+- [x] Marketplace for restoration projects 🌍
+- [x] Investment platform with detailed project info 💰
+- [x] Advanced search and filtering 🔍
+- [x] Project milestone tracking 📊
+- [x] Contact landowner functionality 📧
+- [x] 20+ educational video resources 📚
+- [x] Learning hub with multiple categories 🎓
+- [x] Embedded YouTube video content 🎥
 - [ ] Mobile app (React Native) 📱
 - [ ] Offline mode support 📴
 - [ ] Multi-language interface 🌍
@@ -738,7 +937,8 @@ Real-time notification system for user alerts
 - [x] Social sharing features ✅
 
 ### 🌟 Phase 3: Scale 📅 (Q2 2025)
-- [ ] Marketplace for farm products 🛒
+- [x] Marketplace for farm products ✅ **COMPLETED - Restoration Marketplace**
+- [x] Investment platform ✅ **COMPLETED**
 - [ ] Carbon credit tracking 🌿
 - [ ] Government subsidy alerts 💰
 - [ ] Crop insurance integration 🛡️
