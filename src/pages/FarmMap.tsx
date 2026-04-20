@@ -187,19 +187,12 @@ const FarmMap = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6 max-w-7xl">
-        <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl font-bold text-foreground">Farm Map</h1>
-            <p className="text-muted-foreground mt-2">
-              Visualize your farms with interactive maps, satellite imagery, and health indicators
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Farm Map"
+      subtitle="Visualize your farms with interactive maps, satellite imagery and live health indicators."
+      badge="Geospatial intelligence"
+      icon={<MapPin className="h-6 w-6" />}
+    >
 
         {loading ? (
           <Card>
