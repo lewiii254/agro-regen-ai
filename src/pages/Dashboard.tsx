@@ -323,10 +323,10 @@ const Dashboard = () => {
         {/* Key Metrics */}
         <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "Soil Health", value: "87", suffix: "/100", trend: "+5%", icon: Leaf, tone: "accent" as const },
-            { label: "Moisture", value: "66", suffix: "%", trend: "Optimal", icon: Droplets, tone: "sky" as const },
-            { label: "Active Alerts", value: "2", suffix: "", trend: "1 high · 1 medium", icon: AlertTriangle, tone: "warning" as const },
-            { label: "Farms Managed", value: "3", suffix: "", trend: "All monitored", icon: MapPin, tone: "primary" as const },
+            { label: "Soil Health", value: metrics.soilHealth !== null ? String(metrics.soilHealth) : "—", suffix: metrics.soilHealth !== null ? "/100" : "", trend: metrics.soilHealth !== null ? "Latest report" : "No reports yet", icon: Leaf, tone: "accent" as const },
+            { label: "Moisture", value: metrics.moisture !== null ? String(Math.round(Number(metrics.moisture))) : "—", suffix: metrics.moisture !== null ? "%" : "", trend: metrics.moisture !== null ? "Optimal range" : "Awaiting data", icon: Droplets, tone: "sky" as const },
+            { label: "Active Alerts", value: String(metrics.alertsTotal), suffix: "", trend: `${metrics.alertsHigh} high · ${metrics.alertsMedium} medium`, icon: AlertTriangle, tone: "warning" as const },
+            { label: "Farms Managed", value: String(metrics.farmsCount), suffix: "", trend: metrics.farmsCount > 0 ? "All monitored" : "Add your first farm", icon: MapPin, tone: "primary" as const },
           ].map((m, i) => {
             const t = toneMap[m.tone];
             const Icon = m.icon;
