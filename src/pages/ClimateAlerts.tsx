@@ -194,26 +194,12 @@ const ClimateAlerts = () => {
   const lowSeverityAlerts = alerts.filter(a => a.severity.toLowerCase() === "low");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-sky/5 to-background">
-      <div className="container mx-auto p-6 max-w-7xl">
-        <div className="flex items-center gap-4 mb-8 animate-fade-in">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-sky via-primary to-accent bg-clip-text text-transparent">
-              ⛈️ Climate Prediction Engine
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Hyperlocal weather forecasts and climate risk predictions
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Climate Prediction Engine"
+      subtitle="Hyperlocal weather forecasts, drought risk and real-time climate alerts for your farms."
+      badge="Live forecasts"
+      icon={<CloudRain className="h-6 w-6" />}
+    >
 
         {/* Real-time Weather Dashboard */}
         <div className="grid gap-6 md:grid-cols-4 mb-8 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
