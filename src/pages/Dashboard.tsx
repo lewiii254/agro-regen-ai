@@ -29,25 +29,136 @@ import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, R
 import { NotificationBell } from "@/components/NotificationBell";
 import Footer from "@/components/Footer";
 
+type Metrics = {
+  soilHealth: number | null;
+  moisture: number | null;
+  alertsHigh: number;
+  alertsMedium: number;
+  alertsTotal: number;
+  farmsCount: number;
+  soilTrend: { month: string; nitrogen: number; phosphorus: number; potassium: number }[];
+  moistureWeek: { day: string; moisture: number }[];
+  healthDistribution: { name: string; value: number; color: string }[];
+};
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [metrics, setMetrics] = useState<Metrics>({
+    soilHealth: null,
+    moisture: null,
+    alertsHigh: 0,
+    alertsMedium: 0,
+    alertsTotal: 0,
+    farmsCount: 0,
+    soilTrend: [],
+    moistureWeek: [],
+    healthDistribution: [],
+  });
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) setUser(session.user);
-      else navigate("/auth");
+      if (session?.user) {
+        setUser(session.user);
+        loadMetrics(session.user.id);
+      } else navigate("/auth");
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       if (!session?.user) navigate("/auth");
+      else loadMetrics(session.user.id);
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const loadMetrics = async (userId: string) => {
+    try {
+      const { data: farms } = await supabase.from("farms").select("id").eq("user_id", userId);
+      const farmIds = (farms || []).map((f) => f.id);
+      const farmsCount = farmIds.length;
+
+      if (farmIds.length === 0) {
+        setMetrics((m) => ({ ...m, farmsCount: 0 }));
+        return;
+      }
+
+      const [reportsRes, alertsRes] = await Promise.all([
+        supabase
+          .from("soil_health_reports")
+          .select("health_score, moisture_content, nitrogen_level, phosphorus_level, potassium_level, created_at")
+          .in("farm_id", farmIds)
+          .order("created_at", { ascending: false })
+          .limit(60),
+        supabase
+          .from("climate_alerts")
+          .select("severity, is_read")
+          .in("farm_id", farmIds),
+      ]);
+
+      const reports = reportsRes.data || [];
+      const alerts = alertsRes.data || [];
+
+      const latest = reports[0];
+      const soilHealth = latest?.health_score ?? null;
+      const moisture = latest?.moisture_content ?? null;
+
+      const alertsHigh = alerts.filter((a) => a.severity?.toLowerCase() === "high").length;
+      const alertsMedium = alerts.filter((a) => a.severity?.toLowerCase() === "medium").length;
+
+      // Soil nutrient trend (last up to 5 reports, oldest first)
+      const trendSrc = [...reports].slice(0, 5).reverse();
+      const soilTrend = trendSrc.map((r) => ({
+        month: new Date(r.created_at).toLocaleDateString("en-US", { month: "short" }),
+        nitrogen: Number(r.nitrogen_level) || 0,
+        phosphorus: Number(r.phosphorus_level) || 0,
+        potassium: Number(r.potassium_level) || 0,
+      }));
+
+      // Moisture this week (last 7 reports)
+      const moistureSrc = [...reports].slice(0, 7).reverse();
+      const moistureWeek = moistureSrc.map((r) => ({
+        day: new Date(r.created_at).toLocaleDateString("en-US", { weekday: "short" }),
+        moisture: Number(r.moisture_content) || 0,
+      }));
+
+      // Health distribution from latest report per farm (approx using reports list)
+      const seen = new Set<string>();
+      const buckets = { excellent: 0, good: 0, fair: 0, attention: 0 };
+      for (const r of reports as any[]) {
+        if (seen.has(r.farm_id)) continue;
+        if (r.farm_id) seen.add(r.farm_id);
+        const s = Number(r.health_score) || 0;
+        if (s >= 80) buckets.excellent++;
+        else if (s >= 60) buckets.good++;
+        else if (s >= 40) buckets.fair++;
+        else buckets.attention++;
+      }
+      const healthDistribution = [
+        { name: "Excellent", value: buckets.excellent, color: "hsl(var(--accent))" },
+        { name: "Good", value: buckets.good, color: "hsl(var(--primary))" },
+        { name: "Fair", value: buckets.fair, color: "hsl(var(--warning))" },
+        { name: "Needs Attention", value: buckets.attention, color: "hsl(var(--destructive))" },
+      ].filter((d) => d.value > 0);
+
+      setMetrics({
+        soilHealth,
+        moisture,
+        alertsHigh,
+        alertsMedium,
+        alertsTotal: alerts.length,
+        farmsCount,
+        soilTrend,
+        moistureWeek,
+        healthDistribution,
+      });
+    } catch (e) {
+      console.error("Failed to load dashboard metrics", e);
+    }
+  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -55,30 +166,33 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const soilHealthData = [
-    { month: "Jan", nitrogen: 45, phosphorus: 38, potassium: 42 },
-    { month: "Feb", nitrogen: 48, phosphorus: 40, potassium: 44 },
-    { month: "Mar", nitrogen: 52, phosphorus: 42, potassium: 46 },
-    { month: "Apr", nitrogen: 55, phosphorus: 45, potassium: 48 },
-    { month: "May", nitrogen: 58, phosphorus: 47, potassium: 50 },
-  ];
+  const soilHealthData = metrics.soilTrend.length
+    ? metrics.soilTrend
+    : [
+        { month: "Jan", nitrogen: 45, phosphorus: 38, potassium: 42 },
+        { month: "Feb", nitrogen: 48, phosphorus: 40, potassium: 44 },
+        { month: "Mar", nitrogen: 52, phosphorus: 42, potassium: 46 },
+        { month: "Apr", nitrogen: 55, phosphorus: 45, potassium: 48 },
+        { month: "May", nitrogen: 58, phosphorus: 47, potassium: 50 },
+      ];
 
-  const moistureData = [
-    { day: "Mon", moisture: 65 },
-    { day: "Tue", moisture: 62 },
-    { day: "Wed", moisture: 68 },
-    { day: "Thu", moisture: 70 },
-    { day: "Fri", moisture: 67 },
-    { day: "Sat", moisture: 64 },
-    { day: "Sun", moisture: 66 },
-  ];
+  const moistureData = metrics.moistureWeek.length
+    ? metrics.moistureWeek
+    : [
+        { day: "Mon", moisture: 65 },
+        { day: "Tue", moisture: 62 },
+        { day: "Wed", moisture: 68 },
+        { day: "Thu", moisture: 70 },
+        { day: "Fri", moisture: 67 },
+        { day: "Sat", moisture: 64 },
+        { day: "Sun", moisture: 66 },
+      ];
 
-  const farmHealthDistribution = [
-    { name: "Excellent", value: 35, color: "hsl(var(--accent))" },
-    { name: "Good", value: 45, color: "hsl(var(--primary))" },
-    { name: "Fair", value: 15, color: "hsl(var(--warning))" },
-    { name: "Needs Attention", value: 5, color: "hsl(var(--destructive))" },
-  ];
+  const farmHealthDistribution = metrics.healthDistribution.length
+    ? metrics.healthDistribution
+    : [
+        { name: "No data yet", value: 1, color: "hsl(var(--muted))" },
+      ];
 
   type Tool = {
     label: string;
@@ -209,10 +323,10 @@ const Dashboard = () => {
         {/* Key Metrics */}
         <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "Soil Health", value: "87", suffix: "/100", trend: "+5%", icon: Leaf, tone: "accent" as const },
-            { label: "Moisture", value: "66", suffix: "%", trend: "Optimal", icon: Droplets, tone: "sky" as const },
-            { label: "Active Alerts", value: "2", suffix: "", trend: "1 high · 1 medium", icon: AlertTriangle, tone: "warning" as const },
-            { label: "Farms Managed", value: "3", suffix: "", trend: "All monitored", icon: MapPin, tone: "primary" as const },
+            { label: "Soil Health", value: metrics.soilHealth !== null ? String(metrics.soilHealth) : "—", suffix: metrics.soilHealth !== null ? "/100" : "", trend: metrics.soilHealth !== null ? "Latest report" : "No reports yet", icon: Leaf, tone: "accent" as const },
+            { label: "Moisture", value: metrics.moisture !== null ? String(Math.round(Number(metrics.moisture))) : "—", suffix: metrics.moisture !== null ? "%" : "", trend: metrics.moisture !== null ? "Optimal range" : "Awaiting data", icon: Droplets, tone: "sky" as const },
+            { label: "Active Alerts", value: String(metrics.alertsTotal), suffix: "", trend: `${metrics.alertsHigh} high · ${metrics.alertsMedium} medium`, icon: AlertTriangle, tone: "warning" as const },
+            { label: "Farms Managed", value: String(metrics.farmsCount), suffix: "", trend: metrics.farmsCount > 0 ? "All monitored" : "Add your first farm", icon: MapPin, tone: "primary" as const },
           ].map((m, i) => {
             const t = toneMap[m.tone];
             const Icon = m.icon;
