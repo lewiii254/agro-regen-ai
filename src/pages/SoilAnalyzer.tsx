@@ -10,6 +10,7 @@ import { Sprout, LogOut, ArrowLeft, Loader2, Download, Share2 } from "lucide-rea
 import { Progress } from "@/components/ui/progress";
 import soilImage from "@/assets/soil-health.jpg";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PageShell } from "@/components/PageShell";
 
 const SoilAnalyzer = () => {
   const navigate = useNavigate();
