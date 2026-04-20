@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 import { toast } from "sonner";
 import L from "leaflet";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { PageShell } from "@/components/PageShell";
 
 // Fix for default marker icon
 delete (L.Icon.Default.prototype as any)._getIconUrl;
