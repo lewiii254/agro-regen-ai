@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, AlertTriangle, CheckCircle2, Cloud, CloudRain, Droplets, Wind, Thermometer, Sun, CloudDrizzle } from "lucide-react";
 import { toast } from "sonner";
+import { PageShell } from "@/components/PageShell";
 
 interface ClimateAlert {
   id: string;
