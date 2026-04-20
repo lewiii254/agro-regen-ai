@@ -579,8 +579,7 @@ const ClimateAlerts = () => {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
-    </div>
+    </PageShell>
   );
 };
 
