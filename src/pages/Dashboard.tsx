@@ -166,30 +166,33 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const soilHealthData = [
-    { month: "Jan", nitrogen: 45, phosphorus: 38, potassium: 42 },
-    { month: "Feb", nitrogen: 48, phosphorus: 40, potassium: 44 },
-    { month: "Mar", nitrogen: 52, phosphorus: 42, potassium: 46 },
-    { month: "Apr", nitrogen: 55, phosphorus: 45, potassium: 48 },
-    { month: "May", nitrogen: 58, phosphorus: 47, potassium: 50 },
-  ];
+  const soilHealthData = metrics.soilTrend.length
+    ? metrics.soilTrend
+    : [
+        { month: "Jan", nitrogen: 45, phosphorus: 38, potassium: 42 },
+        { month: "Feb", nitrogen: 48, phosphorus: 40, potassium: 44 },
+        { month: "Mar", nitrogen: 52, phosphorus: 42, potassium: 46 },
+        { month: "Apr", nitrogen: 55, phosphorus: 45, potassium: 48 },
+        { month: "May", nitrogen: 58, phosphorus: 47, potassium: 50 },
+      ];
 
-  const moistureData = [
-    { day: "Mon", moisture: 65 },
-    { day: "Tue", moisture: 62 },
-    { day: "Wed", moisture: 68 },
-    { day: "Thu", moisture: 70 },
-    { day: "Fri", moisture: 67 },
-    { day: "Sat", moisture: 64 },
-    { day: "Sun", moisture: 66 },
-  ];
+  const moistureData = metrics.moistureWeek.length
+    ? metrics.moistureWeek
+    : [
+        { day: "Mon", moisture: 65 },
+        { day: "Tue", moisture: 62 },
+        { day: "Wed", moisture: 68 },
+        { day: "Thu", moisture: 70 },
+        { day: "Fri", moisture: 67 },
+        { day: "Sat", moisture: 64 },
+        { day: "Sun", moisture: 66 },
+      ];
 
-  const farmHealthDistribution = [
-    { name: "Excellent", value: 35, color: "hsl(var(--accent))" },
-    { name: "Good", value: 45, color: "hsl(var(--primary))" },
-    { name: "Fair", value: 15, color: "hsl(var(--warning))" },
-    { name: "Needs Attention", value: 5, color: "hsl(var(--destructive))" },
-  ];
+  const farmHealthDistribution = metrics.healthDistribution.length
+    ? metrics.healthDistribution
+    : [
+        { name: "No data yet", value: 1, color: "hsl(var(--muted))" },
+      ];
 
   type Tool = {
     label: string;
