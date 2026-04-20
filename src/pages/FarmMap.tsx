@@ -504,8 +504,7 @@ const FarmMap = () => {
             )}
           </div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
 
