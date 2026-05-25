@@ -7,7 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Heart, MessageSquare, Plus, User } from "lucide-react";
+import { Heart, MessageSquare, Plus, User } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -143,82 +144,69 @@ const CommunityHub = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-purple/5 to-background">
-      <div className="container mx-auto p-6 max-w-4xl">
-        <div className="flex items-center justify-between mb-8 animate-fade-in">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => navigate("/dashboard")}
-              className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-            >
-              <ArrowLeft className="h-5 w-5" />
+    <PageShell
+      title="Community Hub"
+      subtitle="Share knowledge, ask questions and learn from fellow regenerative farmers."
+      badge="Community"
+      icon={<MessageSquare className="h-6 w-6" />}
+      actions={
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-gradient-to-r from-primary to-accent text-primary-foreground">
+              <Plus className="h-4 w-4 mr-2" />
+              New Post
             </Button>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">Community Hub</h1>
-              <p className="text-lg text-muted-foreground mt-2">
-                Share knowledge and learn from fellow farmers
-              </p>
-            </div>
-          </div>
-          
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-purple to-primary hover:from-purple/90 hover:to-primary/90 text-white shadow-medium hover:shadow-strong hover:scale-110 transition-all duration-300">
-                <Plus className="h-4 w-4 mr-2" />
-                New Post
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="border-2 border-purple/20">
-              <DialogHeader>
-                <DialogTitle className="text-2xl bg-gradient-to-r from-purple to-primary bg-clip-text text-transparent">Create a New Post</DialogTitle>
-                <DialogDescription className="text-base">
-                  Share your farming tips and experiences with the community
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4 mt-4">
-                <div>
-                  <Label htmlFor="title" className="text-base font-semibold">Title</Label>
-                  <Input
-                    id="title"
-                    placeholder="Post title"
-                    value={newPost.title}
-                    onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                    className="h-12 border-2 focus:border-purple transition-colors"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="category" className="text-base font-semibold">Category</Label>
-                  <Input
-                    id="category"
-                    placeholder="e.g., Soil Health, Crop Rotation"
-                    value={newPost.category}
-                    onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
-                    className="h-12 border-2 focus:border-purple transition-colors"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="content" className="text-base font-semibold">Content</Label>
-                  <Textarea
-                    id="content"
-                    placeholder="Share your thoughts..."
-                    rows={6}
-                    value={newPost.content}
-                    onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                    className="border-2 focus:border-purple transition-colors"
-                  />
-                </div>
-                <Button 
-                  onClick={handleCreatePost} 
-                  className="w-full h-12 bg-gradient-to-r from-purple to-primary hover:from-purple/90 hover:to-primary/90 text-white shadow-medium hover:shadow-strong hover:scale-105 transition-all duration-300"
-                >
-                  Create Post
-                </Button>
+          </DialogTrigger>
+          <DialogContent className="border-2 border-primary/20">
+            <DialogHeader>
+              <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Create a New Post</DialogTitle>
+              <DialogDescription className="text-base">
+                Share your farming tips and experiences with the community
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              <div>
+                <Label htmlFor="title" className="text-base font-semibold">Title</Label>
+                <Input
+                  id="title"
+                  placeholder="Post title"
+                  value={newPost.title}
+                  onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                  className="h-12 border-2 focus:border-primary transition-colors"
+                />
               </div>
-            </DialogContent>
-          </Dialog>
-        </div>
+              <div>
+                <Label htmlFor="category" className="text-base font-semibold">Category</Label>
+                <Input
+                  id="category"
+                  placeholder="e.g., Soil Health, Crop Rotation"
+                  value={newPost.category}
+                  onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
+                  className="h-12 border-2 focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <Label htmlFor="content" className="text-base font-semibold">Content</Label>
+                <Textarea
+                  id="content"
+                  placeholder="Share your thoughts..."
+                  rows={6}
+                  value={newPost.content}
+                  onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                  className="border-2 focus:border-primary transition-colors"
+                />
+              </div>
+              <Button
+                onClick={handleCreatePost}
+                className="w-full h-12 bg-gradient-to-r from-primary to-accent text-primary-foreground"
+              >
+                Create Post
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      }
+    >
 
         {loading ? (
           <div className="space-y-4">
@@ -303,8 +291,7 @@ const CommunityHub = () => {
             ))}
           </div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
 

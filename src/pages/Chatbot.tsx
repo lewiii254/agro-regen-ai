@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Sprout, LogOut, ArrowLeft, Send, Loader2, Bot, User } from "lucide-react";
+import { Send, Loader2, Bot, User, Sparkles } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { PageShell } from "@/components/PageShell";
 
 type Message = {
   role: "user" | "assistant";
@@ -93,40 +94,13 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5 flex flex-col">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-card to-card/80 backdrop-blur-md border-b border-border shadow-medium">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => navigate("/dashboard")}
-              className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-3 animate-fade-in">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-primary to-accent">
-                <Sprout className="h-8 w-8 text-white" />
-              </div>
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AI Farm Advisor</h1>
-            </div>
-          </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={handleSignOut}
-            className="hover:bg-destructive hover:text-white transition-all duration-300"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">Sign Out</span>
-          </Button>
-        </div>
-      </header>
-
-      {/* Chat Area */}
-      <div className="flex-1 container mx-auto px-4 py-8 flex flex-col">
+    <PageShell
+      title="AI Farm Advisor"
+      subtitle="Chat with your AI agronomist about soil, crops, pests and regenerative practices."
+      badge="Powered by AI"
+      icon={<Sparkles className="h-6 w-6" />}
+    >
+      <div className="flex flex-col" style={{ minHeight: "calc(100vh - 280px)" }}>
         <Card className="flex-1 flex flex-col overflow-hidden border-2 border-primary/10 shadow-strong animate-scale-in">
           <ScrollArea className="flex-1 p-6" ref={scrollRef}>
             <div className="space-y-6">
@@ -199,7 +173,7 @@ const Chatbot = () => {
           </div>
         </Card>
       </div>
-    </div>
+    </PageShell>
   );
 };
 
