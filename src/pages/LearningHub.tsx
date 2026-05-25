@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, BookOpen, Play, Eye, Heart, GraduationCap, Search, TrendingUp, Award, Download } from "lucide-react";
+import { BookOpen, Play, Eye, Heart, GraduationCap, Search, TrendingUp, Award, Download } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -356,25 +357,12 @@ const LearningHub = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
-              🎓 Learning & Training Hub
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Educational resources and tutorials on regenerative farming
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Learning & Training Hub"
+      subtitle="Curated guides, tutorials and videos on regenerative farming."
+      badge="Education"
+      icon={<GraduationCap className="h-6 w-6" />}
+    >
 
         {/* Stats Cards */}
         <div className="grid md:grid-cols-3 gap-4 mb-8">
@@ -541,9 +529,8 @@ const LearningHub = () => {
             </CardContent>
           </Card>
         )}
-      </div>
       <Footer />
-    </div>
+    </PageShell>
   );
 };
 

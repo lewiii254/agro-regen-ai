@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, TrendingUp, TrendingDown, Minus, DollarSign } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, DollarSign } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -123,25 +124,12 @@ const MarketPriceIntelligence = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              📈 Market Price Intelligence
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Real-time crop prices and market trends
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Market Price Intelligence"
+      subtitle="Real-time crop prices and market trends to time your sales."
+      badge="Live markets"
+      icon={<DollarSign className="h-6 w-6" />}
+    >
 
         {loading ? (
           <div className="text-center py-12">
@@ -221,8 +209,7 @@ const MarketPriceIntelligence = () => {
             </CardContent>
           </Card>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
 

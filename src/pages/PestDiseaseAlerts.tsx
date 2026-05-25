@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Bug, AlertTriangle, CheckCircle2, Leaf } from "lucide-react";
+import { Bug, AlertTriangle, CheckCircle2, Leaf } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 
@@ -186,25 +187,12 @@ const PestDiseaseAlerts = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-              🐛 Pest & Disease Alerts
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Early detection and treatment recommendations
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Pest & Disease Alerts"
+      subtitle="Early detection and treatment recommendations for healthier crops."
+      badge="Crop health"
+      icon={<Bug className="h-6 w-6" />}
+    >
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card className="hover:shadow-xl transition-all duration-300">
@@ -382,8 +370,7 @@ const PestDiseaseAlerts = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </div>
+    </PageShell>
   );
 };
 

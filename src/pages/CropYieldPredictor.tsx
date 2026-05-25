@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, TrendingUp, Calendar, Sprout } from "lucide-react";
+import { TrendingUp, Calendar, Sprout } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 
@@ -124,25 +125,12 @@ const CropYieldPredictor = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-              📊 Crop Yield Predictor
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              AI-powered yield forecasting and harvest planning
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Crop Yield Predictor"
+      subtitle="AI-powered yield forecasting and harvest planning for every crop."
+      badge="AI forecast"
+      icon={<TrendingUp className="h-6 w-6" />}
+    >
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card className="hover:shadow-xl transition-all duration-300">
@@ -265,8 +253,7 @@ const CropYieldPredictor = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </div>
+    </PageShell>
   );
 };
 

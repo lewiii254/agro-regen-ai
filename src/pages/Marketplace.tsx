@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, MapPin, DollarSign, Users, TreePine, Target, CheckCircle2, TrendingUp, Search, Filter, Mail, Phone, Calendar, Info } from "lucide-react";
+import { MapPin, DollarSign, Users, TreePine, Target, CheckCircle2, TrendingUp, Search, Filter, Mail, Phone, Calendar, Info } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -304,25 +305,12 @@ const Marketplace = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              🌍 Restoration Marketplace
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Connect landowners with investors for verified restoration projects
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Restoration Marketplace"
+      subtitle="Connect landowners with investors for verified restoration projects."
+      badge="Impact investing"
+      icon={<TreePine className="h-6 w-6" />}
+    >
 
         {/* Platform Stats */}
         <div className="grid md:grid-cols-4 gap-4 mb-8">
@@ -642,9 +630,8 @@ const Marketplace = () => {
             </CardContent>
           </Card>
         )}
-      </div>
       <Footer />
-    </div>
+    </PageShell>
   );
 };
 

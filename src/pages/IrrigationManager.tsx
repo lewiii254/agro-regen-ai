@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Droplets, Calendar, Play, Pause } from "lucide-react";
+import { Droplets, Calendar, Play, Pause } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 
@@ -157,25 +158,12 @@ const IrrigationManager = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/dashboard")}
-            className="hover:bg-primary/10 hover:scale-110 transition-all duration-300"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 bg-clip-text text-transparent">
-              💧 Smart Irrigation Manager
-            </h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Optimize water usage with intelligent scheduling
-            </p>
-          </div>
-        </div>
+    <PageShell
+      title="Smart Irrigation Manager"
+      subtitle="Optimize water usage with intelligent scheduling for every field."
+      badge="Water automation"
+      icon={<Droplets className="h-6 w-6" />}
+    >
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card className="hover:shadow-xl transition-all duration-300">
@@ -312,8 +300,7 @@ const IrrigationManager = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </div>
+    </PageShell>
   );
 };
 
