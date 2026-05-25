@@ -277,7 +277,10 @@ const ManageFarms = () => {
               </form>
             </DialogContent>
           </Dialog>
-        </div>
+      }
+    >
+
+
 
         {loading ? (
           <div className="grid md:grid-cols-2 gap-4">
@@ -363,9 +366,10 @@ const ManageFarms = () => {
             ))}
           </div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
+
+
 
 export default ManageFarms;
