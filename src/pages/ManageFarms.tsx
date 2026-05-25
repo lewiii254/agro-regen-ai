@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Plus, Edit, Trash2, MapPin } from "lucide-react";
+import { Plus, Edit, Trash2, MapPin } from "lucide-react";
+import { PageShell } from "@/components/PageShell";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -163,34 +164,25 @@ const ManageFarms = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6 max-w-6xl">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
-              <ArrowLeft className="h-5 w-5" />
+    <PageShell
+      title="Manage Farms"
+      subtitle="Add and edit your farm locations with GPS coordinates for mapping & analytics."
+      badge="Farm registry"
+      icon={<MapPin className="h-6 w-6" />}
+      actions={
+        <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Farm
             </Button>
-            <div>
-              <h1 className="text-4xl font-bold text-foreground">Manage Farms</h1>
-              <p className="text-muted-foreground mt-2">
-                Add and edit your farm locations with GPS coordinates
-              </p>
-            </div>
-          </div>
-
-          <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Add Farm
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>
-                  {editingFarm ? "Edit Farm" : "Add New Farm"}
-                </DialogTitle>
-                <DialogDescription>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>
+                {editingFarm ? "Edit Farm" : "Add New Farm"}
+              </DialogTitle>
+              <DialogDescription>
                   Enter farm details including GPS coordinates for map visualization
                 </DialogDescription>
               </DialogHeader>
@@ -285,7 +277,10 @@ const ManageFarms = () => {
               </form>
             </DialogContent>
           </Dialog>
-        </div>
+      }
+    >
+
+
 
         {loading ? (
           <div className="grid md:grid-cols-2 gap-4">
@@ -371,9 +366,10 @@ const ManageFarms = () => {
             ))}
           </div>
         )}
-      </div>
-    </div>
+    </PageShell>
   );
 };
+
+
 
 export default ManageFarms;

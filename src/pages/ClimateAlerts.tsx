@@ -39,22 +39,50 @@ const ClimateAlerts = () => {
   const [alerts, setAlerts] = useState<ClimateAlert[]>([]);
   const [loading, setLoading] = useState(true);
   const [weatherData, setWeatherData] = useState<WeatherData>({
-    temperature: 24,
-    humidity: 65,
-    precipitation: 15,
-    windSpeed: 12,
-    condition: "Partly Cloudy"
+    temperature: 0,
+    humidity: 0,
+    precipitation: 0,
+    windSpeed: 0,
+    condition: "Loading..."
   });
   const [droughtRisk, setDroughtRisk] = useState<DroughtRisk>({
-    level: "Medium",
-    percentage: 45,
-    description: "Moderate drought conditions expected in the next 30 days"
+    level: "Low",
+    percentage: 0,
+    description: "Fetching latest forecast..."
   });
 
   useEffect(() => {
     fetchAlerts();
+    fetchWeather();
     setupRealtimeAlerts();
   }, []);
+
+  const fetchWeather = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: farm } = await supabase
+        .from("farms")
+        .select("latitude, longitude")
+        .eq("user_id", user.id)
+        .not("latitude", "is", null)
+        .not("longitude", "is", null)
+        .limit(1)
+        .maybeSingle();
+      const lat = farm?.latitude ?? -1.2921;
+      const lon = farm?.longitude ?? 36.8219;
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/weather-forecast?lat=${lat}&lon=${lon}`;
+      const resp = await fetch(url, {
+        headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
+      });
+      const json = await resp.json();
+      if (json?.weather) setWeatherData(json.weather);
+      if (json?.drought) setDroughtRisk(json.drought);
+    } catch (err) {
+      console.error("Weather fetch error:", err);
+      toast.error("Could not load live weather data");
+    }
+  };
 
   const setupRealtimeAlerts = () => {
     const channel = supabase
